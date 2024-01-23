@@ -7,4 +7,6 @@ export default [
     { tag: 'categoryexpansion', intlLabel: messages.categoryexpansion },
     { tag: 'programminglanguage', intlLabel: messages.programminglanguage },
     { tag: 'hardware', intlLabel: messages.categoryhardware },
+    { tag: 'builders', intlLabel: messages.categorybuilders },
+    { tag: 'ai', intlLabel: messages.categoryai },
 ];

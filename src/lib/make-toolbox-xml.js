@@ -606,6 +606,8 @@ const events = function (isInitialSetup, isStage) {
         <block type="event_whenflagclicked"/>
         <block type="event_whenstopclicked"/>
         <block type="event_always"></block>
+        <block type="event_whentouchingobject"></block>
+        <block type="event_touchingobjectmenu"></block>
         <block type="event_whenanything">
             <value name="ANYTHING"></value>
         </block>
@@ -635,6 +637,7 @@ const events = function (isInitialSetup, isStage) {
                 <shadow type="event_broadcast_menu"></shadow>
             </value>
         </block>
+        <block type="event_broadcast_menu"></block>
         <block type="event_broadcastandwait">
             <value name="BROADCAST_INPUT">
               <shadow type="event_broadcast_menu"></shadow>
@@ -907,6 +910,7 @@ const sensing = function (isInitialSetup, isStage) {
         <block type="sensing_mouseclicked"/>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>
+        <block type="sensing_loud"/>
         ${blockSeparator}
         <block type="sensing_setclipboard">
             <value name="ITEM">
@@ -1409,7 +1413,46 @@ const variables = function () {
     </category>
     `;
 };
-
+const lists = function () {
+    return `
+    <category
+        name="Lists"
+        id="lists"
+        colour="#FF8C1A"
+        secondaryColour="#DB6E00"
+        custom="LIST">
+    </category>
+    `;
+};
+const effectsCategory = function () {
+    return `
+    
+    <category name="Effects" id="effectsCategory" colour="#1e246e" secondaryColour="#1e246e">
+        <block type="looks_changeeffectby">
+            <value name="CHANGE">
+                <shadow type="math_number">
+                    <field name="NUM">25</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="looks_show"/>
+            <block type="looks_hide"/>
+            <block type="looks_getSpriteVisible"/>
+        <block type="looks_costume"/>
+        <block type="looks_backdrops"/>
+        <block type="looks_seteffectto">
+            <value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="looks_cleargraphiceffects"/>
+        <block type="looks_getEffectValue"/>
+        ${categorySeparator}
+    </category>
+    `;
+};
 const myBlocks = function () {
     return `
     <category
@@ -1495,6 +1538,8 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
     const sensingXML = moveCategory('sensing') || sensing(isInitialSetup, isStage, targetId);
     const operatorsXML = moveCategory('operators') || operators(isInitialSetup, isStage, targetId);
     const variablesXML = moveCategory('data') || variables(isInitialSetup, isStage, targetId);
+    const listsXML = moveCategory('lists') || lists(isInitialSetup, isStage, targetId);
+    const effectsXML = moveCategory('effects') || effectsCategory(isInitialSetup, isStage, targetId);
     const myBlocksXML = moveCategory('procedures') || myBlocks(isInitialSetup, isStage, targetId);
     const liveTestsXML = moveCategory('liveTests') || liveTests(isLiveTest);
 
@@ -1508,6 +1553,8 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
         sensingXML, gap,
         operatorsXML, gap,
         variablesXML, gap,
+        listsXML, gap,
+        effectsXML, gap,
         myBlocksXML, gap,
         isLiveTest ? [liveTestsXML, gap] : ''
     ];

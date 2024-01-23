@@ -11,6 +11,11 @@ export default defineMessages({
         description: 'Tag for filtering a library for animals',
         id: 'gui.libraryTags.animals'
     },
+    categoryai: {
+        defaultMessage: 'AI',
+        description: 'ai tag',
+        id: 'gui.libraryTags.ai'
+    },
     dance: {
         defaultMessage: 'Dance',
         description: 'Tag for filtering a library for dance',
@@ -171,4 +176,9 @@ export default defineMessages({
         description: 'Extensions from other mods (not counting turbowarp)',
         id: 'gui.libraryTags.other_mods'
     },
+    categorybuilders: {
+        defaultMessage: 'Extension Builders',
+        description: 'Tag for filtering a library by categorybuilders',
+        id: 'gui.libraryTags.extenionbuilders'
+    }
 });

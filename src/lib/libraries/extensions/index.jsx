@@ -3,12 +3,20 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
 import musicIconURL from './music/music.png';
+import cloudstorageIconURL from './cloudstorage/costume1.svg';
+import pythonIcon from './python/py.svg';
+import extCreateIcon from './ext-create/logo.svg';
+import extCreateInset from './ext-create/inset.svg';
+import mapIconURL from './maps/openstreetmap.jpg';
+import snailSaveIcon from './snailsavedata/cool.svg';
+import gdApiICON from './gdapi/Capture.png';
 import musicInsetIconURL from './music/music-small.svg';
 
 import penIconURL from './pen/pen.png';
 import penInsetIconURL from './pen/pen-small.svg';
 
 import videoSensingIconURL from './videoSensing/video-sensing.png';
+import blocklyIconURL from './blockly/blockly.png';
 import videoSensingInsetIconURL from './videoSensing/video-sensing-small.svg';
 
 import text2speechIconURL from './text2speech/text2speech.png';
@@ -162,6 +170,121 @@ const menuItems = [
         featured: true
     },
     {
+        name: 'Monitors Plus',
+        extensionId: 'https://snail-ide.js.org/Monitors-Plus.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Monitors-Plus.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: 'New variable blocks and new monitor types.',
+        featured: true
+    },
+    {
+        name: 'Tune Shark',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Tune-Shark.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Tune-Shark.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: 'Advanced Sound Engine for playing your sounds and more. Inspired by LilyMakesThings',
+        featured: true
+    },
+    {
+        name: 'Screensharing',
+        extensionId: 'https://snail-ide.js.org/screen-sharing.js',
+        iconURL: 'https://snail-ide.js.org/Screensharing.png', // please forgive me the text is slightly offcenter
+        collaborator: 'pooiod7',
+        tags: ['penguinmod'],
+        description: 'Share your screen and get the current frame as a image.',
+        featured: true
+    },
+    {
+        name: 'Lazy Collisions',
+        extensionId: 'https://snail-ide.js.org/Lazy-Collisions.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Lazy-Collisions.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: 'W.I.P Description',
+        featured: true
+    },
+    {
+        name: 'Newgrounds Audio',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Newgrounds-Audio.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Newgrounds-Audio.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: 'Fetch Audio and Audio Information from Newgrounds. Works best with Tune Shark',
+        featured: true
+    },
+    {
+        name: 'SnailShare API',
+        extensionId: 'https://snail-ide.js.org/api.js',
+        iconURL: 'https://snail-ide.js.org/snailideapiext.png',
+        collaborator: 'BA4X',
+        tags: ['penguinmod'],
+        description: 'Fetch details of projects and users from Snailshare.',
+        featured: true
+    },
+    {
+        name: 'Posenet2Scratch',
+        extensionId: 'posenet2scratch',
+        iconURL: 'https://www.adacraft.org/studio/static/assets/cc4d68fe9d6a77c7f35f9d5461b60967.png',
+        insetIconURL: 'https://raw.githubusercontent.com/champierre/posenet2scratch/master/scratch-gui/src/lib/libraries/extensions/posenet2scratch/posenet2scratch-small.png',
+        collaborator: 'champierre',
+        internetConnectionRequired: true,
+        tags: ['other_mods', 'ai'],
+        description: 'Detect human poses quickly and accurately with a normal WebCam without using a special device',
+        featured: true
+    },
+    {
+        name: 'Facemesh2scratch',
+        extensionId: 'facemesh2scratch',
+        iconURL: 'https://raw.githubusercontent.com/champierre/facemesh2scratch/master/scratch-gui/src/lib/libraries/extensions/facemesh2scratch/facemesh2scratch.png',
+        insetIconURL: 'https://raw.githubusercontent.com/champierre/facemesh2scratch/master/scratch-gui/src/lib/libraries/extensions/facemesh2scratch/facemesh2scratch-small.png',
+        collaborator: 'champierre',
+        internetConnectionRequired: true,
+        tags: ['other_mods', 'ai'],
+        description: 'Use facetracking in your projects!',
+        featured: true
+    },
+    {
+        name: 'ImageClassifer2Scratch',
+        extensionId: 'ic2scratch',
+        iconURL: 'https://raw.githubusercontent.com/champierre/ic2scratch/master/scratch-gui/src/lib/libraries/extensions/ic2scratch/ic2scratch.png',
+        insetIconURL: 'https://raw.githubusercontent.com/champierre/ic2scratch/master/scratch-gui/src/lib/libraries/extensions/ic2scratch/ic2scratch-small.png',
+        collaborator: 'champierre',
+        internetConnectionRequired: true,
+        tags: ['other_mods', 'ai'],
+        description: 'Image Classification Blocks.',
+        featured: true
+    },
+    {
+        name: 'Tile Grids',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Tile-Grids.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Tile-Grids.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: 'W.I.P Description',
+        featured: true
+    },
+    {
+        name: 'Key Simulator',
+        extensionId: 'https://snail-ide.js.org/keysim.js',
+        iconURL: defaultExtensionIcon,
+        collaborator: 'CubesterYT',
+        tags: ['turbowarp'],
+        description: 'Simulate pressing a key on the keyboard.',
+        featured: true
+    },
+    {
+        name: 'Site Runtime',
+        extensionId: 'https://gabsthecuriouskid.github.io/FirstExtension/extensions/webextension.js',
+        tags: ['other_mods'],
+        iconURL: 'https://gabsthecuriouskid.github.io/FirstExtension/images/site-runtime.png',
+        description: 'A Combined version of 2 Extensions: Packager Applications & AdaBrowser',
+        featured: true,
+        collaborator: 'MrIncredibleMaker',
+        internetConnectionRequired: true,
+    },
+    {
         name: 'AdaBrowser',
         extensionId: 'adabrowser',
         iconURL: 'https://www.adacraft.org/studio/static/assets/40998229311219c2117265d5e4bd9745.png',
@@ -177,6 +300,64 @@ const menuItems = [
         iconURL: 'https://studio.penguinmod.site/static/assets/39f37f1b00fbf96926276701d8de4c89.png',
         tags: ['penguinmod'],
         description: "Blocks for generating and using Perlin noise. Good for generating terrain, clouds, and other things.",
+        featured: true
+    },
+        {
+        name: 'Save Data',
+        extensionId: 'https://snail-ide.js.org/save.js',
+        collaborator: 'Mr_rudy',
+        iconURL: snailSaveIcon,
+        tags: ['penguinmod'],
+        description: "Extremely easy way to save data.",
+        featured: true
+    },
+    {
+        name: 'Grayscale',
+        extensionId: 'https://penguin-mod-extensions-gallery.vercel.app/extensions/Mr_rudy/grayscale.js',
+        collaborator: 'Mr_rudy',
+        iconURL: 'https://penguin-mod-extensions-gallery.vercel.app/images/Mr_rudy/grayscale.svg',
+        tags: ['penguinmod'],
+        description: "Toggle a dramatic grayscale effect on your project. ",
+        featured: true
+    },
+    {
+        name: 'TurboBuilder',
+        href: 'https://turbobuilder-steel.vercel.app',
+        extensionId: 'special_turboBuilder',
+        iconURL: 'https://studio.penguinmod.com/static/assets/93db39f338237e6a51790829ba22a879.png',
+        description: 'Create your own amazing extensions using a scratch-based UI!',
+        collaborator: 'Started by JeremyGamer13, continued by jwklong',
+        tags: ['builders'],
+        featured: true
+    },
+    {
+        name: 'ExtCreate',
+        href: 'https://ext-create.vercel.app/',
+        extensionId: 'special_ExtCreate',
+        iconURL: extCreateIcon,
+        insetIconURL: extCreateInset,
+        description: 'Snail IDE version of TurboBuilder',
+        collaborator: 'Started by JeremyGamer13, continued by jwklong, modified by nmsderp',
+        tags: ['builders'],
+        featured: true
+    },
+    {
+        name: 'PenguinBuilder',
+        href: 'https://chickencuber.github.io/PenguinBuilder/editor/',
+        extensionId: 'special_PenguinBuilder',
+        iconURL: 'https://u.cubeupload.com/Mr_rudy/costume1.png',
+        description: 'Create your own extensions using Blockly.',
+        collaborator: 'chickencuber',
+        tags: ['builders'],
+        featured: true
+    },
+    {
+        name: 'Blockly2Math',
+        extensionId: 'blockly2math',
+        iconURL: blocklyIconURL,
+        collaborator: 'Google',
+        tags: ['penguinmod'],
+        description: "Blockly math blocks.",
         featured: true
     },
     {
@@ -211,6 +392,24 @@ const menuItems = [
         featured: true
     },
     {
+        name: 'Objects',
+        extensionId: 'https://extensions.penguinmod.com/extensions/skyhigh173/object.js',
+        iconURL: 'https://extensions.penguinmod.com/images/skyhigh173/object.svg',
+        tags: ['penguinmod'],
+        collaborator: 'skyhigh173',
+        description: 'Handle large JSON files at an extreme speed',
+        featured: true
+    },
+       {
+        name: 'Money Utilities',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Money-Utilities.js',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Money-Utilities.svg',
+        collaborator: 'SharkPool',
+        tags: ['penguinmod'],
+        description: "Convert Currencies and get Currency Information.",
+        featured: true
+    },
+    {
         name: (
             <FormattedMessage
                 defaultMessage="Video Sensing"
@@ -233,29 +432,56 @@ const menuItems = [
         featured: true
     },
     {
-        name: (
-            <FormattedMessage
-                defaultMessage="Text to Speech"
-                description="Name for the Text to Speech extension"
-                id="gui.extension.text2speech.name"
-            />
-        ),
-        extensionId: 'text2speech',
-        collaborator: 'Amazon Web Services',
-        iconURL: text2speechIconURL,
-        insetIconURL: text2speechInsetIconURL,
-        customInsetColor: '#9966FF',
-        tags: ['scratch'],
-        description: (
-            <FormattedMessage
-                defaultMessage="Make your projects talk."
-                description="Description for the Text to speech extension"
-                id="gui.extension.text2speech.description"
-            />
-        ),
-        featured: true,
-        internetConnectionRequired: true
+        name: 'Cloud Storage',
+        extensionId: 'https://snail-ide.js.org/cloudstorage.js',
+        collaborator: 'pooiod7',
+        iconURL: cloudstorageIconURL, // this needs to be redone soon
+        tags: ['penguinmod'],
+        description: 'Store data in a database, similar to Storage and Better Storage, but powered by a Snap! extension.',
+        featured: true
     },
+    {
+        name: 'Text to Speech 2.0',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Text-to-Speech.js',
+        twDeveloper: 'SharkPool',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Text-to-Speech.svg',
+        tags: ['turbowarp'],
+        description: 'Make your projects talk with the TikTok API.',
+        featured: true
+    },
+    {
+        name: 'Asset Manager',
+        extensionId: 'https://extensions.turbowarp.org/Lily/Assets.js',
+        twDeveloper: 'LillyMakesThings',
+        iconURL: 'https://extensions.turbowarp.org/images/Lily/Assets.svg',
+        tags: ['turbowarp'],
+        description: 'Add, remove, and get data from various types of assets.',
+        featured: true
+    },
+    {
+            name: (
+                <FormattedMessage
+                    defaultMessage="Text to Speech (Scratch)"
+                    description="Name for the Text to Speech extension"
+                    id="gui.extension.text2speech.name"
+                />
+            ),
+            extensionId: 'text2speech',
+            collaborator: 'Amazon Web Services',
+            iconURL: text2speechIconURL,
+            insetIconURL: text2speechInsetIconURL,
+            customInsetColor: '#9966FF',
+            tags: ['scratch'],
+            description: (
+                <FormattedMessage
+                    defaultMessage="Make your projects talk."
+                    description="Description for the Text to speech extension"
+                    id="gui.extension.text2speech.description"
+                />
+            ),
+            featured: true,
+            internetConnectionRequired: true
+        },
     {
         name: (
             <FormattedMessage
@@ -264,9 +490,9 @@ const menuItems = [
                 id="gui.extension.speech2text.name"
             />
         ),
-        extensionId: 'speech2text',
-        collaborator: 'Google',
-        iconURL: 'https://powerbox1000.github.io/dev-blocks/static/assets/0294d390ec3c5a58f3701b3098646770.png',
+        extensionId: 'https://rubyteam.tech/cdn/extensions/speechtotext.js',
+        collaborator: 'Ruby Dev Team',
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/speechtotext.png',
         tags: ['scratch'],
         description: (
             <FormattedMessage
@@ -330,6 +556,16 @@ const menuItems = [
         featured: true
     },
     {
+        name: 'Search Params',
+        extensionId: 'https://extensions.turbowarp.org/ZXMushroom63/searchApi.js',
+        twDeveloper: 'ZXMushroom63',
+        iconURL: 'https://extensions.turbowarp.org/images/ZXMushroom63/searchApi.svg',
+        insetIconURL: turbowarpIcon,
+        tags: ['turbowarp'],
+        description: 'Interact with URL search parameters: the part of the URL after a question mark.',
+        featured: true
+    },
+    {
         name: 'Numerical Encoding',
         extensionId: 'https://extensions.turbowarp.org/cs2627883/numericalencoding.js',
         twDeveloper: 'cs2627883',
@@ -337,6 +573,52 @@ const menuItems = [
         insetIconURL: turbowarpIcon,
         tags: ['turbowarp'],
         description: 'Encode strings as numbers for cloud variables',
+        featured: true
+    },
+    {
+        name: 'Augmented Reality',
+        extensionId: 'https://extensions.turbowarp.org/ar.js',
+        twDeveloper: 'Vadik1',
+        iconURL: 'https://extensions.turbowarp.org/images/ar.svg',
+        insetIconURL: turbowarpIcon,
+        tags: ['turbowarp'],
+        description: 'Shows image from camera and performs motion tracking, allowing 3D projects to correctly overlay virtual objects on real world.',
+        featured: true
+    },
+    {
+        name: 'Camera Sensing Plus',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Camera-Sensing-Plus.js',
+        twDeveloper: 'SharkPool',
+        iconURL: 'https://sharkpools-extensions.vercel.app/extension-thumbs/Camera-Sensing-Plus.svg',
+        tags: ['turbowarp'],
+        description: 'Improved camera sensing',
+        featured: true
+    },
+    {
+        name: 'PenguinGPT',
+        extensionId: 'https://snail-ide.js.org/SnailGPT/extension.js',
+        twDeveloper: 'Anonymous-cat1',
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/penguingpt.png',
+        tags: ['turbowarp', 'ai'],
+        description: 'ChatGPT in Snail IDE/PenguinMod has been taken to a whole new level with PenguinGPT. (This replaces the ChatGPT extension and is backwards compatible)',
+        featured: true
+    },
+    {
+        name: 'Gemini',
+        extensionId: 'https://rubyteam.tech/cdn/extensions/geminiai.js',
+        collaborator: 'Ruby Dev Team',
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/turbogemini.webp',
+        tags: ['turbowarp', 'ai'],
+        description: 'Use Google Gemini in your projects',
+        featured: true
+    },
+    {
+        name: 'Analytics',
+        extensionId: 'https://rubyteam.tech/cdn/extensions/analytics.js',
+        collaborator: 'Ruby Dev Team',
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/analytics.webp',
+        tags: ['turbowarp', 'penguinmod'],
+        description: 'Measure how many people are using your projects using the Ruby API.',
         featured: true
     },
     {
@@ -360,27 +642,26 @@ const menuItems = [
         featured: true
     },
     {
-        name: '0tils',
-        extensionId: 'https://survexe1pc.github.io/unsafe-extensions/0znzw/0tils.js',
-        twDeveloper: '0znzw',
-        iconURL: 'https://survexe1pc.github.io/unsafe-extensions/images/0znzw/0tils.png',
-        insetIconURL: turbowarpIcon,
-        tags: ['turbowarp'],
-        description: 'Placeholder',
-        featured: true
-    },
-    {
         name: 'Cats',
-        extensionId: 'https://penguinmod-extensions-gallery.vercel.app/extensions/Gen1x/CATS.js',
-        collaborator: ' G1nX',
+        extensionId: 'https://extensions.penguinmod.com/extensions/Gen1x/CATS.js',
+        collaborator: 'Gen1X',
         iconURL: catsIconURL,
         tags: ['penguinmod'],
         description: 'Blocks to give you cat facts. 😻',
         featured: true,
     },
     {
+        name: 'PenguinPedia',
+        extensionId: 'https://rubyteam.tech/cdn/extensions/penguinpedia.js',
+        collaborator: 'Gen1X',
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/penguinpedia.webp',
+        tags: ['penguinmod'],
+        description: 'Get a lot of data from Wikipedia, like definitions and images!',
+        featured: true,
+    },
+    {
         name: 'Wacky Joke Blocks',
-        extensionId: 'https://snail-ide.github.io/joke.js',
+        extensionId: 'https://snail-ide.js.org/joke.js',
         collaborator: 'Mr_rudy/nmsderp',
         iconURL: 'https://c8.alamy.com/comp/RB1P6W/young-handsome-business-man-laughing-of-you-pointing-to-the-camera-with-finger-hand-over-chest-shame-expression-RB1P6W.jpg',
         tags: ['penguinmod'],
@@ -497,6 +778,15 @@ const menuItems = [
         featured: true
     },
     {
+        name: 'Better Storage',
+        extensionId: 'https://extensions.penguinmod.site/extensions/Gen1x/better_storage.js',
+        iconURL: 'https://extensions.penguinmod.site/images/Gen1x/betterstorage.png',
+        tags: ['penguinmod'],
+        description: 'Like PenguinMods Storage Extension, but with a couple more features, and faster servers.',
+        collaborator: 'G1nX',
+        featured: true
+    },
+    {
         name: 'Storage',
         extensionId: 'jgStorage',
         iconURL: jgStorageExtensionIcon,
@@ -516,11 +806,11 @@ const menuItems = [
     },
     {
         name: 'CloudLink',
-        extensionId: 'https://extensions.turbowarp.org/cloudlink.js',
-        tags: ['turbowarp'],
+        extensionId: 'https://extensions.penguinmod.com/extensions/MikeDev101/cloudlink.js',
+        tags: ['penguinmod', 'turbowarp'],
         insetIconURL: cloudlinkIcon,
-        iconURL: 'https://extensions.turbowarp.org/images/cloudlink.svg',
-        description: 'A cool extension to interact with webservers',
+        iconURL: 'https://extensions.penguinmod.com/images/MikeDev101/cloudlink.svg',
+        description: 'A powerful WebSocket extension for Scratch.',
         featured: true,
         extDeveloper: 'MikeDev',
         internetConnectionRequired: false
@@ -600,6 +890,15 @@ const menuItems = [
         featured: true
     },
     {
+        name: '1MB Shortener',
+        extensionId: 'https://rubyteam.tech/cdn/extensions/1mb.js', // update reference once file names are updated
+        tags: ['turbowarp'],
+        iconURL: 'https://rubyteam.tech/cdn/thumbnails/1mb.svg',
+        description: 'Using 1mb Api you can now share links without it being long!',
+        featured: true,
+        collaborator: 'Ruby Dev Team'
+    },
+    {
         name: 'McUtils',
         extensionId: 'https://extensions.turbowarp.org/Lily/McUtils.js', // update reference once file names are updated
         tags: ['turbowarp'],
@@ -631,7 +930,7 @@ const menuItems = [
     },
     {
         name: 'Snail Extras',
-        extensionId: 'https://snail-ide.github.io/snail_extras.js', // update reference once file names are updated
+        extensionId: 'https://snail-ide.js.org/snail_extras.js', // update reference once file names are updated
         tags: ['penguinmod'],
         iconURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-RWnel-yFH8B7obNf21l-F1DpJ7eCVd2oq2SeHm89Xw&s',
         insetIconURL: turbowarpIcon,
@@ -679,10 +978,9 @@ const menuItems = [
     },
     {
         name: 'Camera Controls',
-        extensionId: 'DTcameracontrols',
-        iconURL: 'https://extensions.turbowarp.org/images/DT/cameracontrols.svg',
-        tags: ['turbowarp'],
-        insetIconURL: turbowarpIcon,
+        extensionId: 'pmCamera',
+        iconURL: 'https://studio.penguinmod.site/static/assets/6b8350e1c4fcb14dddb1c4bac60690fc.png',
+        tags: ['penguinmod'],
         description: (
             <FormattedMessage
                 defaultMessage="Move the visible part of the stage."
@@ -691,7 +989,6 @@ const menuItems = [
             />
         ),
         featured: true,
-        twDeveloper: 'DT-is-not-available'
     },
     {
         name: 'Clipping and Blending',
@@ -746,13 +1043,42 @@ const menuItems = [
         featured: true
     },
     {
-        name: 'micro:bit (Adacraft)',
-        extensionId: 'vittamicrobit',
-        iconURL: 'https://www.adacraft.org/studio/static/assets/36854ae363289b372d95a65546decb87.png',
-        tags: ['other_mods','hardware'],
-        description: "Blocks to interact with BBC micro:bit through a USB cable connection.",
+        name: 'Video',
+        extensionId: 'https://extensions.turbowarp.org/Lily/Video.js',
+        iconURL: 'https://extensions.turbowarp.org/images/Lily/Video.svg',
+        insetIconURL: turbowarpIcon,
+        twDeveloper: 'LillyMakesThings',
+        tags: ['turbowarp'],
+        description: "Play videos from URLs.",
         featured: true
     },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="micro:bit with USB"
+                description="Name for the 'Vitta micro:bit' extension"
+                id="gui.extension.vittamicrobit.name"
+            />
+        ),
+        tags: ['hardware'],
+        extensionId: 'vittamicrobit',
+        collaborator: 'Vittascience',
+        iconURL: 'https://www.adacraft.org/studio/static/assets/36854ae363289b372d95a65546decb87.png',
+        insetIconURL: 'https://www.adacraft.org/studio/static/assets/42f568ea43bc3ccb3de1c575cfc04484.svg',
+        description: (
+            <FormattedMessage
+                defaultMessage="Blocks to interact with micro:bit through a USB cable connection"
+                description="Description for the 'Vitta micro:bit' extension"
+                id="gui.extension.vittamicrobit.description"
+            />
+        ),
+        featured: true,
+        disabled: false,
+        usbConnectionRequired: true,
+        launchSerialConnectionFlow: true,
+        useAutoscan: false,
+    },
+
     {
         name: 'Adacraft Runtime',
         extensionId: 'adaruntime',
@@ -770,10 +1096,63 @@ const menuItems = [
         featured: true
     },
     {
+        name: (
+            <FormattedMessage
+                defaultMessage="PenguinMod Extra Extensions"
+                description="Name of library item to open the Extra Extensions gallery"
+                id="pm.extraLibraryExtensions.name"
+            />
+        ),
+        href: 'https://extensions.penguinmod.site/',
+        extensionId: 'special_penguinmodExtensionLibrary',
+        iconURL: 'https://studio.penguinmod.site/static/assets/7a4510ab192e5a0bd0b1186db1396bce.svg',
+        description: (
+            <FormattedMessage
+                defaultMessage="See some user-submitted extensions. Opens in a new tab."
+                description="Description of library item to open the Extra Extensions gallery"
+                id="pm.extraLibraryExtensions.description"
+            />
+        ),
+        tags: ['penguinmod'],
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="TurboWarp Extension Gallery"
+                description="Name of extensions.turbowarp.org in extension library"
+                id="tw.extensionGallery.name"
+            />
+        ),
+        href: 'https://extensions.turbowarp.org/',
+        extensionId: 'special_turbowarpExtensionLibrary',
+        iconURL: 'https://studio.penguinmod.site/static/assets/fa121178a0dc748c56257f39987f0540.svg',
+        description: (
+            <FormattedMessage
+                // eslint-disable-next-line max-len
+                defaultMessage="We list many TurboWarp extensions here for convenience, but you can find even more on extensions.turbowarp.org."
+                description="Description of extensions.turbowarp.org in extension library"
+                id="tw.extensionGallery.description"
+            />
+        ),
+        tags: ['penguinmod'],
+        featured: true
+    },
+    // https://extensions.turbowarp.org/shreder95ua/resolution.js
+    {
+        name: 'Screen Resolution',
+        extensionId: 'https://extensions.turbowarp.org/shreder95ua/resolution.js',
+        iconURL: 'https://extensions.turbowarp.org/images/shreder95ua/resolution.svg',
+        twDeveloper: 'shreder95ua',
+        description: 'Get the resolution of the primary screen.',
+        featured: true
+
+    },
+    {
         name: 'TypeScratch',
         extensionId: 'typescratch',
         iconURL: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
-        tags: ['penguinmod, programminglanguage'],
+        tags: ['penguinmod', 'programminglanguage'],
         description: "Similar to the JavaScript extension but for TypeScript",
         featured: true
     },
@@ -783,6 +1162,24 @@ const menuItems = [
         iconURL: jgJavascriptExtensionIcon,
         tags: ['penguinmod', 'programminglanguage'],
         description: 'Run your own custom code written in JavaScript!',
+        featured: true
+    },
+    {
+        name: 'Better Input',
+        extensionId: 'https://extensions.penguinmod.site/extensions/SharkPool/BetterInput.js',
+        iconURL: 'https://extensions.penguinmod.site/images/SharkPool/BetterInput.svg',
+        tags: ['penguinmod'],
+        collaborator: 'SharkPool-SP',
+        description: 'Expansion to the Ask and Wait blocks.',
+        featured: true
+    },
+    {
+        name: 'GD API',
+        extensionId: 'https://sharkpools-extensions.vercel.app/extension-code/Geometry-Dash-API.js',
+        iconURL: gdApiICON,
+        tags: ['penguinmod'],
+        collaborator: 'SharkPool-SP',
+        description: 'Access the GD api.',
         featured: true
     },
     {
@@ -995,6 +1392,14 @@ if (IsLocal || IsLiveTests) {
             featured: true
         },
         {
+            name: 'Python',
+            extensionId: 'pythonExtension',
+            iconURL: pythonIcon,
+            tags: ['programminglanguage'],
+            description: 'Execute python commands on our server and have them used in your projects.',
+            featured: true
+        },
+        {
             name: 'Clone Communication',
             extensionId: 'jgClones',
             iconURL: jgCloneManagerExtensionIcon,
@@ -1070,13 +1475,49 @@ if (IsLocal || IsLiveTests) {
             featured: true
         },
         {
+            name: '3-Axis Accelerometer',
+            extensionId: 'threeAxisAccelerometer',
+            iconURL: 'https://ide.tinkergen.com/static/assets/68e0777fce47a010d082beb3c6214161.png',
+            tags: ['other_mods'],
+            description: 'Visualize a 3-Axis Accelerometer with a simple block.',
+            featured: true
+        },
+        {
+            name: 'Christmas',
+            extensionId: 'jgChristmas',
+            iconURL: defaultExtensionIcon,
+            tags: ['penguinmod'],
+            description: 'all i want for christmas is yououuouououo',
+            featured: true
+        },
+        {
             name: 'Inline Blocks',
             extensionId: 'pmInlineBlocks',
             iconURL: pmInlineBlocksExtensionIcon,
             tags: ['penguinmod'],
             description: 'Create quick blocks for simple tasks. Insert them into any circle spot and have them return any value you want.',
             featured: true
-        }
+        },
+        {
+            name: 'Handpose2scratch',
+            extensionId: 'handpose2scratch',
+            iconURL: 'https://raw.githubusercontent.com/champierre/handpose2scratch/master/scratch-gui/src/lib/libraries/extensions/handpose2scratch/handpose2scratch.png',
+            insetIconURL: 'https://raw.githubusercontent.com/champierre/handpose2scratch/master/scratch-gui/src/lib/libraries/extensions/handpose2scratch/handpose2scratch-small.png',
+            collaborator: 'champierre',
+            internetConnectionRequired: true,
+            tags: ['other_mods'],
+            description: 'Use handtracking in your projects!',
+            featured: true
+        },
+        {
+        name: 'Open Street Map',
+        extensionId: 'adacraftleaflet',
+        iconURL: mapIconURL,
+        tags: ['penguinmod'],
+        description: 'Use maps in your project. W.I.P Extension.',
+        featured: true,
+        internetConnectionRequired: true
+    },
     ];
     extras.forEach(ext => {
         menuItems.push(ext);

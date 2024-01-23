@@ -125,7 +125,9 @@ const pmDevelopers = [
     'MaterArc',
     'RedMan13',
     'showierdata9978',
-    'nmsderp'
+    'nmsderp',
+    'cesderp14',
+    'thepython555'
 ].map(fromHardcodedGithub);
 
 const logoArtists = Promise.all([
@@ -134,10 +136,12 @@ const logoArtists = Promise.all([
 
 const extensionDevelopers = [
     'GarboMuffin',
+    'Ruby-Devs',
     'griffpatch',
     'DT-is-not-available',
+    'SharkPool-SP',
     'Vadik1',
-    'MikeDev',
+    'MikeDev101',
     'LilyMakesThings'
 ].map(fromHardcodedGithub);
 

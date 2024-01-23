@@ -101,7 +101,7 @@ const getProjectDetailsById = async (id) => {
     // if we have already gotten the details of this project, avoid making another request since they likely never changed
     if (projectDetailCache[String(id)] != null) return projectDetailCache[String(id)];
 
-    const response = await fetch(`https://projects.penguinmod.site/api/projects/getPublished?id=${id}`);
+    const response = await fetch(`https://snailshare-backend.glitch.me/api/pmWrapper/getProject?id=${id}`);
     // Don't continue if the api never returned 200-299 since we would cache an error as project details
     if (!response.ok) return {};
 
@@ -137,6 +137,13 @@ const Footer = () => (
                             id="tw.footer.donate"
                         />
                     </a>
+                    <a href="https://penguinmod.site/donate">
+                        <FormattedMessage
+                            defaultMessage="Donate to PenguinMod Developer"
+                            description="Donation link in footer"
+                            id="tw.footer.penguinmod-donate"
+                        />
+                    </a>
                 </div>
                 <div className={styles.footerSection}>
                     <a href="https://studio.penguinmod.site/PenguinMod-Packager">
@@ -147,21 +154,21 @@ const Footer = () => (
                         {/* Do not translate */}
                         {'TurboWarp Desktop'}
                     </a>
-                    <a href="https://docs.turbowarp.org/embedding">
+                    <a href="https://snail-ide.js.org/docs/embedding">
                         <FormattedMessage
                             defaultMessage="Embedding"
                             description="Link in footer to embedding documentation for embedding link"
                             id="tw.footer.embed"
                         />
                     </a>
-                    <a href="https://docs.turbowarp.org/url-parameters">
+                    <a href="https://snail-ide.js.org/docs/url-parameters">
                         <FormattedMessage
                             defaultMessage="URL Parameters"
                             description="Link in footer to URL parameters documentation"
                             id="tw.footer.parameters"
                         />
                     </a>
-                    <a href="https://docs.turbowarp.org/">
+                    <a href="https://snail-ide.js.org/docs/">
                         <FormattedMessage
                             defaultMessage="Documentation"
                             description="Link in footer to additional documentation"
@@ -191,18 +198,32 @@ const Footer = () => (
                             id="tw.privacy"
                         />
                     </a>
+                    <a href="https://snail-ide.js.org/examples/">
+                        <FormattedMessage
+                            defaultMessage="Example Projects"
+                            description="Link to example projects"
+                            id="tw.examples"
+                        />
+                    </a>
+                    <a href="https://snail-ide.js.org/editor.html?livetests">
+                        <FormattedMessage
+                            defaultMessage="Live Tests"
+                            description="Opens the livetests page"
+                            id="tw.livetests"
+                        />
+                    </a>
                     <a href="https://scratch.mit.edu/studios/33532977/">
                         <FormattedMessage
                             defaultMessage="Scratch Studio"
-                            description="Link to privacy policy"
+                            description="Link to scratch studio"
                             id="tw.snail-studio"
                         />
                     </a>
-                    <a href="https://snail-ide.github.io/community-extensions/">
+                    <a href="https://snail-ide.vercel.app">
                         <FormattedMessage
-                            defaultMessage="Community/Beta Extensions"
-                            description="Link to privacy policy"
-                            id="tw.community-extensions"
+                            defaultMessage="Homepage"
+                            description="Link to homepage"
+                            id="tw.beta"
                         />
                     </a>
                 </div>
@@ -297,8 +318,8 @@ class Interface extends React.Component {
                             {(window.LastFetchedProject) != null && (window.LastFetchedProject.remix != null) ? (
                                 <div className={styles.unsharedUpdate}>
                                     <div style={{ display: "flex", flexDirection: "row" }}>
-                                        <a style={{ height: "32px" }} target="_blank" href={"https://penguinmod.site/profile?user=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}><img style={{ marginRight: "4px", borderRadius: "4px" }} width="32" height="32" title={projectDetailCache[String(window.LastFetchedProject.remix)]?.owner} alt={projectDetailCache[String(window.LastFetchedProject.remix)]?.owner} src={"https://projects.penguinmod.site/api/pmWrapper/scratchUserImage?username=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}></img></a>
-                                        <p>Thanks to <b><a target="_blank" href={"https://penguinmod.site/profile?user=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}>{projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}</a></b> for the original project <b><a href={window.location.origin + "/#" + projectDetailCache[String(window.LastFetchedProject.remix)]?.id}>{projectDetailCache[String(window.LastFetchedProject.remix)]?.name}</a></b>.</p>
+                                        <a style={{ height: "32px" }} target="_blank" href={"https://snail-ide.vercel.app/profile?user=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}><img style={{ marginRight: "4px", borderRadius: "4px" }} width="32" height="32" title={projectDetailCache[String(window.LastFetchedProject.remix)]?.owner} alt={projectDetailCache[String(window.LastFetchedProject.remix)]?.owner} src={"https://snailshare-backend.glitch.me/api/pmWrapper/scratchUserImage?username=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}></img></a>
+                                        <p>Thanks to <b><a target="_blank" href={"https://snail-ide.vercel.app/profile?user=" + projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}>{projectDetailCache[String(window.LastFetchedProject.remix)]?.owner}</a></b> for the original project <b><a href={window.location.origin + "/#" + projectDetailCache[String(window.LastFetchedProject.remix)]?.id}>{projectDetailCache[String(window.LastFetchedProject.remix)]?.name}</a></b>.</p>
                                     </div>
                                     <div style={{ display: 'none' }}>{getProjectDetailsById(window.LastFetchedProject.remix).yesIDefinetlyKnowHowToUseReactProperlyShutUp}</div>
                                 </div>
@@ -345,7 +366,7 @@ class Interface extends React.Component {
                                 </div>
                             ) : null}
                             {((window.LastFetchedProject) != null) ? (
-                                <a target="_blank" href={"https://penguinmod.site/profile?user=" + window.LastFetchedProject.owner}>View other projects by {window.LastFetchedProject.owner}</a>
+                                <a target="_blank" href={"https://snail-ide.vercel.app/profile?user=" + window.LastFetchedProject.owner}>View other projects by {window.LastFetchedProject.owner}</a>
                             ) : null}
                             <div className={styles.section}>
                                 <p>
@@ -360,7 +381,7 @@ class Interface extends React.Component {
                             <div className={styles.section}>
                                 <FeaturedProjects />
                             </div>
-                            <a target="_blank" href="https://penguinmod.site/search?q=all:projects">View projects in new tab</a>
+                            <a target="_blank" href="https://snail-ide.vercel.app/search?q=all:projects">View projects in new tab</a>
                         </React.Fragment>
                     ) : null}
                 </div>
