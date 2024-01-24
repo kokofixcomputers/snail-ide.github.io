@@ -273,6 +273,27 @@ const RemoveMiscLimits = props => (
     />
 );
 
+const EnableDangerousOptimizations = props => (
+    <BooleanSetting
+        {...props}
+        label={
+            <FormattedMessage
+                defaultMessage="Enable Dangerous Optimizations"
+                description="Enable Dangerous Optimizations setting"
+                id="pm.settingsModal.dangerousOptimizations"
+            />
+        }
+        help={
+            <FormattedMessage
+                defaultMessage="Precomputes certain numbers & uses faster methods for certain operations, at the cost of losing tiny features like typing special text in certain number inputs. Not all projects will be compatible with this setting."
+                description="Dangerous Optimizations setting help"
+                id="pm.settingsModal.dangerousOptimizationsHelp"
+            />
+        }
+        // slug="enable-dangerous-optimizations"
+    />
+);
+
 const WarpTimer = props => (
     <BooleanSetting
         {...props}
@@ -328,14 +349,6 @@ const CustomStageSize = ({
                         onClick={() => onStagePresetUsed(true)}
                     >
                         16:9
-                    </button>
-                    <button
-                        className={styles.customStageSizeButton}
-                        data-selected={stageWidth === 360 && stageHeight === 480}
-                        data-mobile={true}
-                        onClick={() => onStagePresetUsed(true)}
-                    >
-                        Mobile Game
                     </button>
                 </div>
                 <div className={styles.customStageSizeContainer}>
@@ -495,6 +508,17 @@ const SettingsModalComponent = props => (
             />
             <Header>
                 <FormattedMessage
+                    defaultMessage="Optimizations"
+                    description="Settings modal section"
+                    id="pm.settingsModal.optimizations"
+                />
+            </Header>
+            <EnableDangerousOptimizations
+                value={props.dangerousOptimizations}
+                onChange={props.onEnableDangerousOptimizationsChange}
+            />
+            <Header>
+                <FormattedMessage
                     defaultMessage="Screen Resolution"
                     description="Settings modal section"
                     id="pm.settingsModal.screenResolution"
@@ -534,7 +558,9 @@ SettingsModalComponent.propTypes = {
     warpTimer: PropTypes.bool,
     onWarpTimerChange: PropTypes.func,
     disableCompiler: PropTypes.bool,
-    onDisableCompilerChange: PropTypes.func
+    dangerousOptimizations: PropTypes.bool,
+    onDisableCompilerChange: PropTypes.func,
+    onEnableDangerousOptimizationsChange: PropTypes.func
 };
 
 export default injectIntl(SettingsModalComponent);

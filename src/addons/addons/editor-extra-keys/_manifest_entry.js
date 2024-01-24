@@ -9,7 +9,7 @@ const manifest = {
   "credits": [
     {
       "name": "Tacodiva",
-      "link": "https://scratch.mit.edu/users/Tacodude7729/"
+      "link": "https://scratch.mit.edu/users/Tacodiva7729/"
     }
   ],
   "info": [
@@ -57,6 +57,9 @@ const manifest = {
       "id": "snailKey",
       "type": "boolean",
       "default": false
+=======
+      "default": true
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
     }
   ],
   "userscripts": [
@@ -64,6 +67,7 @@ const manifest = {
       "url": "userscript.js"
     }
   ],
-  "dynamicDisable": true
+  "dynamicDisable": true,
+  "enabledByDefault": true
 };
 export default manifest;

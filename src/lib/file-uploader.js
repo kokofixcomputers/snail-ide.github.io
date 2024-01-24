@@ -3,6 +3,7 @@ import randomizeSpritePosition from './randomize-sprite-position.js';
 import bmpConverter from './bmp-converter';
 import gifDecoder from './gif-decoder';
 import fixSVG from './tw-svg-fixer';
+import convertAudioToWav from './tw-convert-audio-wav.js';
 
 /**
  * Extract the file name given a string of the form fileName + ext
@@ -211,7 +212,11 @@ const soundUpload = function (fileData, fileType, storage, handleSound, handleEr
         break;
     }
     default:
-        handleError(`Encountered unexpected file type: ${fileType}`);
+        convertAudioToWav(fileData)
+            .then(fixed => {
+                soundUpload(fixed, 'audio/wav', storage, handleSound, handleError);
+            })
+            .catch(handleError);
         return;
     }
 
@@ -222,6 +227,27 @@ const soundUpload = function (fileData, fileType, storage, handleSound, handleEr
         new Uint8Array(fileData));
 
     handleSound(vmSound);
+};
+
+/**
+ * Handles loading a sound using the provided, context-relevant information.
+ * @param {ArrayBuffer} fileData The sound data to load
+ * @param {string} fileType The MIME type of this file.
+ * @param {ScratchStorage} storage The ScratchStorage instance to cache the sound data
+ * @param {Function} handleFile The function to execute on the sound object of type VMAsset
+ * This function should be responsible for adding the sound to the VM
+ * as well as handling other UI flow that should come after adding the sound
+ * @param {Function} handleError The function to execute if there is an error parsing the sound
+ */
+const externalFileUpload = function (fileData, fileType, storage, handleFile, handleError) {
+    // TODO: we should handle TXT and JSON differently
+    const vmFile = createVMAsset(
+        storage,
+        storage.AssetType.ExternalFile,
+        storage.DataFormat.TXT,
+        new Uint8Array(fileData));
+
+    handleFile(vmFile);
 };
 
 const spriteUpload = function (fileData, fileType, spriteName, vm, handleSprite, handleError = () => {}) {
@@ -275,5 +301,6 @@ export {
     handleFileUpload,
     costumeUpload,
     soundUpload,
-    spriteUpload
+    spriteUpload,
+    externalFileUpload
 };

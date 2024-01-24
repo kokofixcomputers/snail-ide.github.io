@@ -1,5 +1,30 @@
 [
     {
+        "name": "Aae-a",
+        "tags": [
+            "drawing"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/aae.svg"
+    },
+    {
+        "name": "Aae-b",
+        "tags": [
+            "drawing",
+            "happy"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/aae-happy.svg"
+    },
+    {
         "name": "Abby-a",
         "tags": [
             "people",
@@ -1063,6 +1088,20 @@
         "rotationCenterY": 71
     },
     {
+        "name": "Bingus",
+        "tags": [
+            "cat",
+            "animals",
+            "realistic"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 87,
+        "rotationCenterY": 128,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/bingus.png"
+    },
+    {
         "name": "Bowl-a",
         "tags": [
             "thing",
@@ -1114,6 +1153,19 @@
         "md5ext": "556288a1c996345c751a3dc88b570cfa.svg",
         "rotationCenterX": 135,
         "rotationCenterY": 25
+    },
+    {
+        "name": "Buddy",
+        "tags": [
+            "drawing",
+            "character"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/Buddy.svg"
     },
     {
         "name": "Building-a",
@@ -2387,6 +2439,33 @@
         "rotationCenterY": 128.03860864267807
     },
     {
+        "name": "Checkmark",
+        "tags": [
+            "icons"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/check.svg"
+    },
+    {
+        "name": "Cheeseburger",
+        "tags": [
+            "burger",
+            "food",
+            "fastfood",
+            "american"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/cheeseburger.svg"
+    },
+    {
         "name": "Cheesy Puffs",
         "tags": [
             "food"
@@ -2397,6 +2476,19 @@
         "md5ext": "82772a61ec74974e84c686c61ea0b7d5.png",
         "rotationCenterX": 87,
         "rotationCenterY": 72
+    },
+    {
+        "name": "Cheesy Puffs2",
+        "tags": [
+            "hot",
+            "spicy"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 87,
+        "rotationCenterY": 72,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/redcheesepuffs.png"
     },
     {
         "name": "Chick-a",
@@ -2645,6 +2737,34 @@
         "rotationCenterY": 24
     },
     {
+        "name": "Cursor",
+        "tags": [
+            "mouse",
+            "computers",
+            "input",
+            "icons"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/cursor.svg"
+    },
+    {
+        "name": "Curved Arrow",
+        "tags": [
+            "icons",
+            "arrow"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/curved-arrow.svg"
+    },
+    {
         "name": "Dan-a",
         "tags": [
             "people"
@@ -2679,6 +2799,19 @@
         "md5ext": "b4ab6b3b69de1bc3ed6a94ace172a0b0.svg",
         "rotationCenterX": 44,
         "rotationCenterY": 44
+    },
+    {
+        "name": "Dango-b",
+        "tags": [
+            "food",
+            "turbowarp"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 44,
+        "rotationCenterY": 44,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/Dango-b.svg"
     },
     {
         "name": "Dani-a",
@@ -4541,6 +4674,20 @@
         "rotationCenterY": 22
     },
     {
+        "name": "Garbage Muffin",
+        "tags": [
+            "garbo",
+            "food",
+            "turbowarp"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/garbage-muffin.svg"
+    },
+    {
         "name": "Ghost-a",
         "tags": [
             "fantasy",
@@ -4548,7 +4695,8 @@
             "halloween",
             "ghoul",
             "monster",
-            "alex eben meyer"
+            "alex eben meyer",
+            "larry"
         ],
         "assetId": "f522b08c5757569ad289d67bce290cd0",
         "bitmapResolution": 1,
@@ -4565,7 +4713,8 @@
             "halloween",
             "ghoul",
             "monster",
-            "alex eben meyer"
+            "alex eben meyer",
+            "larry"
         ],
         "assetId": "d1d89391f1d9c74557e504456d58a002",
         "bitmapResolution": 1,
@@ -4582,7 +4731,8 @@
             "halloween",
             "ghoul",
             "monster",
-            "alex eben meyer"
+            "alex eben meyer",
+            "larry"
         ],
         "assetId": "634744e3f98bee53e9cb477a63aa9b21",
         "bitmapResolution": 1,
@@ -4599,7 +4749,8 @@
             "halloween",
             "ghoul",
             "monster",
-            "alex eben meyer"
+            "alex eben meyer",
+            "larry"
         ],
         "assetId": "40ba3a0b5b3899a655fd8867229d4ee3",
         "bitmapResolution": 1,
@@ -4607,6 +4758,20 @@
         "md5ext": "40ba3a0b5b3899a655fd8867229d4ee3.svg",
         "rotationCenterX": 78,
         "rotationCenterY": 69
+    },
+    {
+        "name": "Gidey",
+        "tags": [
+            "giddy",
+            "happy",
+            "crude"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 126,
+        "rotationCenterY": 119,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/giddy.png"
     },
     {
         "name": "Gift-a",
@@ -5825,6 +5990,19 @@
         "rotationCenterY": 97
     },
     {
+        "name": "Huh",
+        "tags": [
+            "face",
+            "crude"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 182,
+        "rotationCenterY": 141,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/huh.png"
+    },
+    {
         "name": "Jaime Walking-a",
         "tags": [
             "people"
@@ -6056,6 +6234,33 @@
         "md5ext": "3158299771b3d34ed2c50a00fbab715e.svg",
         "rotationCenterX": 99,
         "rotationCenterY": 86
+    },
+    {
+        "name": "Jeremy",
+        "tags": [
+            "drawing",
+            "developer"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/jeremy.svg"
+    },
+    {
+        "name": "Jinx",
+        "tags": [
+            "cat",
+            "animals",
+            "realistic"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 98,
+        "rotationCenterY": 145,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/jinx.png"
     },
     {
         "name": "Jo Pop Down",
@@ -6738,6 +6943,20 @@
         "rotationCenterY": 248
     },
     {
+        "name": "Lemon",
+        "tags": [
+            "food",
+            "yellow",
+            "fruit"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/lemon.svg"
+    },
+    {
         "name": "Lightning",
         "tags": [
             "weather",
@@ -6752,6 +6971,19 @@
         "md5ext": "0ddd3a05a330925bcd2d048908ed40b8.svg",
         "rotationCenterX": 21,
         "rotationCenterY": 83
+    },
+    {
+        "name": "Lily",
+        "tags": [
+            "flower",
+            "turbowarp"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/lily.svg"
     },
     {
         "name": "Line",
@@ -7558,6 +7790,19 @@
         "rotationCenterY": 130.25802625960853
     },
     {
+        "name": "Nord",
+        "tags": [
+            "nerd",
+            "crude"
+        ],
+        "assetId": "18dada8a9aabcfc157e051d2e33aa7fd",
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "md5ext": "18dada8a9aabcfc157e051d2e33aa7fd.png",
+        "rotationCenterX": 140,
+        "rotationCenterY": 120
+    },
+    {
         "name": "Octopus-a",
         "tags": [
             "animals",
@@ -7675,6 +7920,19 @@
         "md5ext": "b823f73a31e61fd362574e2c24dfc0c2.svg",
         "rotationCenterX": 49,
         "rotationCenterY": 27
+    },
+    {
+        "name": "Orange3",
+        "tags": [
+            "food",
+            "fruit"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/orange.svg"
     },
     {
         "name": "Outfielder-a",
@@ -8024,6 +8282,27 @@
         "rotationCenterY": 46
     },
     {
+        "name": "Penguin-d",
+        "tags": [
+            "animals",
+            "penguin",
+            "bird",
+            "cold",
+            "north pole",
+            "south pole",
+            "ice",
+            "antarctica",
+            "arctic",
+            "robert hunter"
+        ],
+        "assetId": "58999a391fbe7690897bcff97a930d11",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "58999a391fbe7690897bcff97a930d11.svg",
+        "rotationCenterX": 26,
+        "rotationCenterY": 46
+    },
+    {
         "name": "Penguin2-a",
         "tags": [
             "animals",
@@ -8082,6 +8361,19 @@
         "md5ext": "780467f3d173dcb37fd65834841babc6.svg",
         "rotationCenterX": 48,
         "rotationCenterY": 61
+    },
+    {
+        "name": "Pick",
+        "tags": [
+            "gardening",
+            "tool"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/pick.svg"
     },
     {
         "name": "Pico Walk1",
@@ -8775,6 +9067,19 @@
         "md5ext": "60993a025167e7886736109dca5d55e2.svg",
         "rotationCenterX": 39,
         "rotationCenterY": 70
+    },
+    {
+        "name": "Remote",
+        "tags": [
+            "tv",
+            "television"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/remote.svg"
     },
     {
         "name": "Retro Robot A",
@@ -9530,6 +9835,61 @@
         "md5ext": "3cfff37072a4138b977ba406c290b419.svg",
         "rotationCenterX": 55,
         "rotationCenterY": 89
+    },
+    {
+        "name": "Smiley-a",
+        "tags": [
+            "drawing",
+            "face"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/smiley.svg"
+    },
+    {
+        "name": "Smiley-b",
+        "tags": [
+            "drawing",
+            "face",
+            "happy"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/smile.svg"
+    },
+    {
+        "name": "Smiley-c",
+        "tags": [
+            "drawing",
+            "face",
+            "sad"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/sad.svg"
+    },
+    {
+        "name": "Smiley-d",
+        "tags": [
+            "drawing",
+            "face",
+            "angry"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/anger.svg"
     },
     {
         "name": "Snake-a",
@@ -10324,6 +10684,21 @@
         "md5ext": "5456a723f3b35eaa946b974a59888793.svg",
         "rotationCenterX": 49,
         "rotationCenterY": 63
+    },
+    {
+        "name": "Tomato",
+        "tags": [
+            "food",
+            "red",
+            "crunchy",
+            "fruit"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/tomato.svg"
     },
     {
         "name": "Toucan-a",

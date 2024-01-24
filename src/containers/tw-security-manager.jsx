@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import log from '../lib/log';
 import bindAll from 'lodash.bindall';
 import SecurityManagerModal from '../components/tw-security-manager-modal/security-manager-modal.jsx';
@@ -23,18 +23,19 @@ const manuallyTrustExtension = url => {
 const isTrustedExtension = url => (
     // Always trust our official extension repostiory.
     url.startsWith('https://extensions.turbowarp.org/') ||
+    url.startsWith('https://extensions.penguinmod.site/') ||
     url.startsWith('https://extensions.penguinmod.com/') ||
-    url.startsWith('https://snail-ide.js.org/') ||
-    url.startsWith('https://snail-ide.vercel.app/') ||
-    url.startsWith('https://sharkpools-extensions.vercel.app/') ||
-    url.startsWith('https://rubyteam.tech/cdn/extensions/') ||
-    url.startsWith('https://ba4x.pro/') ||
-    url.startsWith('https://adacraft.notion.site/') ||
-    url.startsWith('https://adacraft.org/') ||
-    url.startsWith('https://raw.githubusercontent.com/khanning/scratch-extensions/master/') ||
+    url.startsWith('https://penguinmod-extensions-gallery.vercel.app/') ||
+
+    // Trust other people's galleries. These can be removed in the future, they will just show a pop-up on load if they are.
+    url.startsWith('https://sharkpools-extensions.vercel.app/') || // SharkPool
 
     // For development.
-    url.startsWith('http://localhost:8000/') ||
+    url.startsWith('http://localhost:8000') ||
+    url.startsWith('http://localhost:6000') || // Launcher Home
+    url.startsWith('http://localhost:6001') || // Launcher Extensions
+    url.startsWith('http://localhost:5173') || // Local Home or Extensions
+    url.startsWith('http://localhost:5174') || // Local Home or Extensions
 
     extensionsTrustedByUser.has(url)
 );
@@ -46,16 +47,16 @@ const isTrustedExtension = url => (
 const fetchOriginsTrustedByUser = new Set();
 
 /**
+ * Set of origins manually trusted by the user for embedding.
+ * @type {Set<string>}
+ */
+const embedOriginsTrustedByUser = new Set();
+
+/**
  * @param {URL} parsed Parsed URL object
  * @returns {boolean} True if the URL is part of the builtin set of URLs to always trust fetching from.
  */
 const isAlwaysTrustedForFetching = parsed => (
-    // Note that the regexes here don't need to be perfect. It's okay if we let extensions try to fetch
-    // resources from eg. GitHub Pages domains that aren't actually valid usernames. They'll just get
-    // a network error.
-    // URL parsing will always convert the parsed origin to lowercase, so we don't need case
-    // insensitivity here.
-
     // If we would trust loading an extension from here, we can trust loading resources too.
     isTrustedExtension(parsed.href) ||
 
@@ -64,17 +65,18 @@ const isAlwaysTrustedForFetching = parsed => (
     parsed.origin.endsWith('.turbowarp.org') ||
     parsed.origin.endsWith('.turbowarp.xyz') ||
 
+    // Any PenguinMod service such as projects
+    parsed.origin === 'https://penguinmod.site' ||
+    parsed.origin.endsWith('.penguinmod.site') ||
+    parsed.origin === 'https://penguinmod.com' ||
+    parsed.origin.endsWith('.penguinmod.com') ||
+
     // GitHub
     parsed.origin === 'https://raw.githubusercontent.com' ||
     parsed.origin === 'https://api.github.com' ||
-    parsed.origin.endsWith('.github.io') ||
 
     // GitLab
     parsed.origin === 'https://gitlab.com' ||
-    parsed.origin.endsWith('.gitlab.io') ||
-
-    // BitBucket
-    parsed.origin.endsWith('.bitbucket.io') ||
 
     // Itch
     parsed.origin.endsWith('.itch.io') ||
@@ -111,6 +113,13 @@ let allowedAudio = false;
 let allowedVideo = false;
 let allowedReadClipboard = false;
 let allowedNotify = false;
+let allowedGeolocation = false;
+const notAllowedToAskUnsandbox = Object.create({});
+let loadingExtensionsRemember = false;
+let rememberedExtensionInfo = {
+    unsandboxed: false,
+    loaded: false
+};
 
 const SECURITY_MANAGER_METHODS = [
     'getSandboxMode',
@@ -121,15 +130,19 @@ const SECURITY_MANAGER_METHODS = [
     'canRecordAudio',
     'canRecordVideo',
     'canReadClipboard',
-    'canNotify'
+    'canNotify',
+    'canGeolocate',
+    'canEmbed',
+    'canUnsandbox'
 ];
 
 class TWSecurityManagerComponent extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
             'handleAllowed',
-            'handleDenied'
+            'handleDenied',
+            'projectWillChange'
         ]);
         bindAll(this, SECURITY_MANAGER_METHODS);
         this.nextModalCallbacks = [];
@@ -142,11 +155,22 @@ class TWSecurityManagerComponent extends React.Component {
         };
     }
 
-    componentDidMount () {
+    projectWillChange() {
+        loadingExtensionsRemember = false;
+        rememberedExtensionInfo = {
+            unsandboxed: false,
+            loaded: false
+        };
+    }
+    componentDidMount() {
         const securityManager = this.props.vm.extensionManager.securityManager;
         for (const method of SECURITY_MANAGER_METHODS) {
             securityManager[method] = this[method];
         }
+        this.props.vm.runtime.on('RUNTIME_DISPOSED', this.projectWillChange);
+    }
+    componentWillUnmount() {
+        this.props.vm.runtime.off('RUNTIME_DISPOSED', this.projectWillChange);
     }
 
     // eslint-disable-next-line valid-jsdoc
@@ -154,7 +178,7 @@ class TWSecurityManagerComponent extends React.Component {
      * @returns {Promise<() => Promise<boolean>>} Resolves with a function that you can call to show the modal.
      * The resolved function returns a promise that resolves with true if the request was approved.
      */
-    async acquireModalLock () {
+    async acquireModalLock() {
         // We need a two-step process for showing a modal so that we don't overwrite or overlap modals,
         // and so that multiple attempts to fetch resources from the same origin will all be allowed
         // with just one click. This means that some places have to wait until previous modals are
@@ -200,11 +224,11 @@ class TWSecurityManagerComponent extends React.Component {
         };
     }
 
-    handleAllowed () {
+    handleAllowed() {
         this.state.callback(true);
     }
 
-    handleDenied () {
+    handleDenied() {
         this.state.callback(false);
     }
 
@@ -212,7 +236,7 @@ class TWSecurityManagerComponent extends React.Component {
      * @param {string} url The extension's URL
      * @returns {string} The VM worker mode to use
      */
-    getSandboxMode (url) {
+    getSandboxMode(url) {
         if (isTrustedExtension(url)) {
             log.info(`Loading extension ${url} unsandboxed`);
             return 'unsandboxed';
@@ -220,7 +244,7 @@ class TWSecurityManagerComponent extends React.Component {
         return 'iframe';
     }
 
-    handleChangeUnsandboxed (e) {
+    handleChangeUnsandboxed(e) {
         const checked = e.target.checked;
         this.setState(oldState => ({
             data: {
@@ -230,38 +254,70 @@ class TWSecurityManagerComponent extends React.Component {
         }));
     }
 
+    handleChangeRemember(e) {
+        const checked = e.target.checked;
+        this.setState(oldState => ({
+            data: {
+                ...oldState.data,
+                remember: checked
+            }
+        }));
+    }
+
     /**
      * @param {string} url The extension's URL
      * @returns {Promise<boolean>} Whether the extension can be loaded
      */
-    async canLoadExtensionFromProject (url) {
+    async canLoadExtensionFromProject(url) {
         if (isTrustedExtension(url)) {
             log.info(`Loading extension ${url} automatically`);
             return true;
         }
-        const {showModal} = await this.acquireModalLock();
-        if (url.startsWith('data:')) {
-            const allowed = await showModal(SecurityModals.LoadExtension, {
-                url,
-                unsandboxed: false,
-                onChangeUnsandboxed: this.handleChangeUnsandboxed.bind(this)
-            });
-            if (this.state.data.unsandboxed) {
+        if (loadingExtensionsRemember) {
+            // TODO: find some way to identify these, custom extensions have too long of URLs
+            if (!rememberedExtensionInfo.loaded) {
+                console.warn('An extension was not loaded');
+                return false;
+            }
+            if (rememberedExtensionInfo.unsandboxed) {
+                console.log('An extension was loaded unsandboxed');
                 manuallyTrustExtension(url);
             }
-            return allowed;
+            return true;
         }
-        return showModal(SecurityModals.LoadExtension, {
+        const { showModal } = await this.acquireModalLock();
+        // for backwards compatibility, allow urls to be unsandboxed
+        // if (url.startsWith('data:')) {
+        const allowed = await showModal(SecurityModals.LoadExtension, {
             url,
-            unsandboxed: false
+            unsandboxed: true,
+            remember: false,
+            onChangeUnsandboxed: this.handleChangeUnsandboxed.bind(this),
+            onChangeRemember: this.handleChangeRemember.bind(this),
         });
+        if (this.state.data.unsandboxed) {
+            manuallyTrustExtension(url);
+        }
+        if (this.state.data.remember) {
+            loadingExtensionsRemember = true;
+            rememberedExtensionInfo = {
+                unsandboxed: this.state.data.unsandboxed,
+                loaded: allowed
+            };
+        }
+        return allowed;
+        // }
+        // return showModal(SecurityModals.LoadExtension, {
+        //     url,
+        //     unsandboxed: false
+        // });
     }
 
     /**
      * @param {string} url The resource to fetch
      * @returns {Promise<boolean>} True if the resource is allowed to be fetched
      */
-    async canFetch (url) {
+    async canFetch(url) {
         const parsed = parseURL(url);
         if (!parsed) {
             return false;
@@ -269,7 +325,7 @@ class TWSecurityManagerComponent extends React.Component {
         if (isAlwaysTrustedForFetching(parsed)) {
             return true;
         }
-        const {showModal, releaseLock} = await this.acquireModalLock();
+        const { showModal, releaseLock } = await this.acquireModalLock();
         if (fetchOriginsTrustedByUser.has(origin)) {
             releaseLock();
             return true;
@@ -287,12 +343,12 @@ class TWSecurityManagerComponent extends React.Component {
      * @param {string} url The website to open
      * @returns {Promise<boolean>} True if the website can be opened
      */
-    async canOpenWindow (url) {
+    async canOpenWindow(url) {
         const parsed = parseURL(url);
         if (!parsed) {
             return false;
         }
-        const {showModal} = await this.acquireModalLock();
+        const { showModal } = await this.acquireModalLock();
         return showModal(SecurityModals.OpenWindow, {
             url
         });
@@ -302,12 +358,12 @@ class TWSecurityManagerComponent extends React.Component {
      * @param {string} url The website to redirect to
      * @returns {Promise<boolean>} True if the website can be redirected to
      */
-    async canRedirect (url) {
+    async canRedirect(url) {
         const parsed = parseURL(url);
         if (!parsed) {
             return false;
         }
-        const {showModal} = await this.acquireModalLock();
+        const { showModal } = await this.acquireModalLock();
         return showModal(SecurityModals.Redirect, {
             url
         });
@@ -316,9 +372,9 @@ class TWSecurityManagerComponent extends React.Component {
     /**
      * @returns {Promise<boolean>} True if audio can be recorded
      */
-    async canRecordAudio () {
+    async canRecordAudio() {
         if (!allowedAudio) {
-            const {showModal} = await this.acquireModalLock();
+            const { showModal } = await this.acquireModalLock();
             allowedAudio = await showModal(SecurityModals.RecordAudio);
         }
         return allowedAudio;
@@ -327,9 +383,9 @@ class TWSecurityManagerComponent extends React.Component {
     /**
      * @returns {Promise<boolean>} True if video can be recorded
      */
-    async canRecordVideo () {
+    async canRecordVideo() {
         if (!allowedVideo) {
-            const {showModal} = await this.acquireModalLock();
+            const { showModal } = await this.acquireModalLock();
             allowedVideo = await showModal(SecurityModals.RecordVideo);
         }
         return allowedVideo;
@@ -338,9 +394,9 @@ class TWSecurityManagerComponent extends React.Component {
     /**
      * @returns {Promise<boolean>} True if the clipboard can be read
      */
-    async canReadClipboard () {
+    async canReadClipboard() {
         if (!allowedReadClipboard) {
-            const {showModal} = await this.acquireModalLock();
+            const { showModal } = await this.acquireModalLock();
             allowedReadClipboard = await showModal(SecurityModals.ReadClipboard);
         }
         return allowedReadClipboard;
@@ -349,15 +405,62 @@ class TWSecurityManagerComponent extends React.Component {
     /**
      * @returns {Promise<boolean>} True if the notifications are allowed
      */
-    async canNotify () {
+    async canNotify() {
         if (!allowedNotify) {
-            const {showModal} = await this.acquireModalLock();
+            const { showModal } = await this.acquireModalLock();
             allowedNotify = await showModal(SecurityModals.Notify);
         }
         return allowedNotify;
     }
 
-    render () {
+    /**
+     * @returns {Promise<boolean>} True if geolocation is allowed.
+     */
+    async canGeolocate() {
+        if (!allowedGeolocation) {
+            const { showModal } = await this.acquireModalLock();
+            allowedGeolocation = await showModal(SecurityModals.Geolocate);
+        }
+        return allowedGeolocation;
+    }
+
+
+    /**
+     * @returns {Promise<boolean>} True if geolocation is allowed.
+     */
+    async canUnsandbox(name) {
+        if (notAllowedToAskUnsandbox[name]) return false;
+        const { showModal } = await this.acquireModalLock();
+        const allowedUnsandbox = await showModal(SecurityModals.Unsandbox, { name: name || "" });
+        if (!allowedUnsandbox) {
+            notAllowedToAskUnsandbox[name] = true;
+        }
+        return allowedUnsandbox;
+    }
+
+    /**
+     * @param {string} url Frame URL
+     * @returns {Promise<boolean>} True if embed is allowed.
+     */
+    async canEmbed(url) {
+        const parsed = parseURL(url);
+        if (!parsed) {
+            return false;
+        }
+        const origin = (parsed.protocol === 'http:' || parsed.protocol === 'https:') ? parsed.origin : null;
+        const { showModal, releaseLock } = await this.acquireModalLock();
+        if (origin && embedOriginsTrustedByUser.has(origin)) {
+            releaseLock();
+            return true;
+        }
+        const allowed = await showModal(SecurityModals.Embed, { url });
+        if (origin && allowed) {
+            embedOriginsTrustedByUser.add(origin);
+        }
+        return allowed;
+    }
+
+    render() {
         if (this.state.type) {
             return (
                 <SecurityManagerModal
@@ -375,6 +478,7 @@ class TWSecurityManagerComponent extends React.Component {
 
 TWSecurityManagerComponent.propTypes = {
     vm: PropTypes.shape({
+        runtime: PropTypes.any.isRequired,
         extensionManager: PropTypes.shape({
             securityManager: PropTypes.shape(
                 SECURITY_MANAGER_METHODS.reduce((obj, method) => {

@@ -4,6 +4,7 @@ import defaultsDeep from 'lodash.defaultsdeep';
 import makeToolboxXML from '../lib/make-toolbox-xml';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {intlShape, injectIntl, defineMessages} from 'react-intl';
 import VMScratchBlocks from '../lib/blocks';
 import VM from 'scratch-vm';
 
@@ -39,6 +40,34 @@ import {
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
 
+// TW: Strings we add to scratch-blocks are localized here
+const messages = defineMessages({
+    PROCEDURES_RETURN: {
+        defaultMessage: 'return {v}',
+        // eslint-disable-next-line max-len
+        description: 'The name of the "return" block from the Custom Reporters extension. {v} is replaced with a slot to insert a value.',
+        id: 'tw.blocks.PROCEDURES_RETURN'
+    },
+    PROCEDURES_TO_REPORTER: {
+        defaultMessage: 'Change To Reporter',
+        // eslint-disable-next-line max-len
+        description: 'Context menu item to change a command-shaped custom block into a reporter. Part of the Custom Reporters extension.',
+        id: 'tw.blocks.PROCEDURES_TO_REPORTER'
+    },
+    PROCEDURES_TO_STATEMENT: {
+        defaultMessage: 'Change To Statement',
+        // eslint-disable-next-line max-len
+        description: 'Context menu item to change a reporter-shaped custom block into a statement/command. Part of the Custom Reporters extension.',
+        id: 'tw.blocks.PROCEDURES_TO_STATEMENT'
+    },
+    PROCEDURES_DOCS: {
+        defaultMessage: 'How to use return',
+        // eslint-disable-next-line max-len
+        description: 'Button in extension list to learn how to use the "return" block from the Custom Reporters extension.',
+        id: 'tw.blocks.PROCEDURES_DOCS'
+    }
+});
+
 const addFunctionListener = (object, property, callback) => {
     const oldFn = object[property];
     object[property] = function (...args) {
@@ -73,6 +102,7 @@ class Blocks extends React.Component {
             'handlePromptCallback',
             'handlePromptClose',
             'handleCustomProceduresClose',
+            'handleExtensionRemoved',
             'onScriptGlowOn',
             'onScriptGlowOff',
             'onBlockGlowOn',
@@ -82,10 +112,12 @@ class Blocks extends React.Component {
             'handleBlocksInfoUpdate',
             'onTargetsUpdate',
             'onVisualReport',
+            'onBlockStackError',
             'onWorkspaceUpdate',
             'onWorkspaceMetricsChange',
             'setBlocks',
-            'setLocale'
+            'setLocale',
+            'handleEnableProcedureReturns'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback = this.handleConnectionModalStart;
@@ -106,6 +138,14 @@ class Blocks extends React.Component {
         this.ScratchBlocks.FieldColourSlider.activateEyedropper_ = this.props.onActivateColorPicker;
         this.ScratchBlocks.Procedures.externalProcedureDefCallback = this.props.onActivateCustomProcedures;
         this.ScratchBlocks.ScratchMsgs.setLocale(this.props.locale);
+
+        const Msg = this.ScratchBlocks.Msg;
+        Msg.PROCEDURES_RETURN = this.props.intl.formatMessage(messages.PROCEDURES_RETURN, {
+            v: '%1'
+        });
+        Msg.PROCEDURES_TO_REPORTER = this.props.intl.formatMessage(messages.PROCEDURES_TO_REPORTER);
+        Msg.PROCEDURES_TO_STATEMENT = this.props.intl.formatMessage(messages.PROCEDURES_TO_STATEMENT);
+        Msg.PROCEDURES_DOCS = this.props.intl.formatMessage(messages.PROCEDURES_DOCS);
 
         const workspaceConfig = defaultsDeep({},
             Blocks.defaultOptions,
@@ -137,6 +177,9 @@ class Blocks extends React.Component {
             if (url.protocol === 'http:' || url.protocol === 'https:') {
                 window.open(docsURI, '_blank');
             }
+        });
+        toolboxWorkspace.registerButtonCallback('OPEN_RETURN_DOCS', () => {
+            window.open('https://docs.turbowarp.org/return', '_blank');
         });
 
         // Store the xml of the toolbox that is actually rendered.
@@ -294,10 +337,12 @@ class Blocks extends React.Component {
         this.props.vm.addListener('BLOCK_GLOW_ON', this.onBlockGlowOn);
         this.props.vm.addListener('BLOCK_GLOW_OFF', this.onBlockGlowOff);
         this.props.vm.addListener('VISUAL_REPORT', this.onVisualReport);
+        this.props.vm.addListener('BLOCK_STACK_ERROR', this.onBlockStackError);
         this.props.vm.addListener('workspaceUpdate', this.onWorkspaceUpdate);
         this.props.vm.addListener('targetsUpdate', this.onTargetsUpdate);
         this.props.vm.addListener('MONITORS_UPDATE', this.handleMonitorsUpdate);
         this.props.vm.addListener('EXTENSION_ADDED', this.handleExtensionAdded);
+        this.props.vm.addListener('EXTENSION_REMOVED', this.handleExtensionRemoved);
         this.props.vm.addListener('BLOCKSINFO_UPDATE', this.handleBlocksInfoUpdate);
         this.props.vm.addListener('PERIPHERAL_CONNECTED', this.handleStatusButtonUpdate);
         this.props.vm.addListener('PERIPHERAL_DISCONNECTED', this.handleStatusButtonUpdate);
@@ -308,10 +353,12 @@ class Blocks extends React.Component {
         this.props.vm.removeListener('BLOCK_GLOW_ON', this.onBlockGlowOn);
         this.props.vm.removeListener('BLOCK_GLOW_OFF', this.onBlockGlowOff);
         this.props.vm.removeListener('VISUAL_REPORT', this.onVisualReport);
+        this.props.vm.removeListener('BLOCK_STACK_ERROR', this.onBlockStackError);
         this.props.vm.removeListener('workspaceUpdate', this.onWorkspaceUpdate);
         this.props.vm.removeListener('targetsUpdate', this.onTargetsUpdate);
         this.props.vm.removeListener('MONITORS_UPDATE', this.handleMonitorsUpdate);
         this.props.vm.removeListener('EXTENSION_ADDED', this.handleExtensionAdded);
+        this.props.vm.removeListener('EXTENSION_REMOVED', this.handleExtensionRemoved);
         this.props.vm.removeListener('BLOCKSINFO_UPDATE', this.handleBlocksInfoUpdate);
         this.props.vm.removeListener('PERIPHERAL_CONNECTED', this.handleStatusButtonUpdate);
         this.props.vm.removeListener('PERIPHERAL_DISCONNECTED', this.handleStatusButtonUpdate);
@@ -366,7 +413,17 @@ class Blocks extends React.Component {
         this.workspace.glowBlock(data.id, false);
     }
     onVisualReport (data) {
-        this.workspace.reportValue(data.id, data.value);
+        this.workspace.reportValue(data.id, data.value, false);
+    }
+    onBlockStackError (data) {
+        // blocks still exist in fullscreen for some reason
+        if (this.props.isFullScreen) return;
+        if (!this.props.vm.editingTarget) return;
+        const targetBlock = this.workspace.getBlockById(data.id);
+        if (!targetBlock) return; // this happens when we switch sprites
+        this.workspace.glowBlock(data.id, false);
+        this.workspace.reportValue(data.id, data.value, true);
+        this.workspace.errorStack(data.id, true);
     }
     getToolboxXML () {
         // Use try/catch because this requires digging pretty deep into the VM
@@ -389,6 +446,12 @@ class Blocks extends React.Component {
             );
         } catch (error) {
             return null;
+        }
+    }
+    handleExtensionRemoved () {
+        const toolboxXML = this.getToolboxXML();
+        if (toolboxXML) {
+            this.props.updateToolboxState(toolboxXML);
         }
     }
     onWorkspaceUpdate (data) {
@@ -568,6 +631,10 @@ class Blocks extends React.Component {
                 this.updateToolbox(); // To show new variables/custom blocks
             });
     }
+    handleEnableProcedureReturns () {
+        this.workspace.enableProcedureReturns();
+        this.requestToolboxUpdate();
+    }
     render () {
         /* eslint-disable no-unused-vars */
         const {
@@ -621,6 +688,7 @@ class Blocks extends React.Component {
                         vm={vm}
                         liveTest={this.props.isLiveTest}
                         onCategorySelected={this.handleCategorySelected}
+                        onEnableProcedureReturns={this.handleEnableProcedureReturns}
                         onRequestClose={onRequestCloseExtensionLibrary}
                         onOpenCustomExtensionModal={this.props.onOpenCustomExtensionModal}
                     />
@@ -639,6 +707,7 @@ class Blocks extends React.Component {
 }
 
 Blocks.propTypes = {
+    intl: intlShape,
     anyModalVisible: PropTypes.bool,
     canUseCloud: PropTypes.bool,
     customStageSize: PropTypes.shape({
@@ -688,7 +757,8 @@ Blocks.propTypes = {
     workspaceMetrics: PropTypes.shape({
         targets: PropTypes.objectOf(PropTypes.object)
     }),
-    isLiveTest: PropTypes.bool
+    isLiveTest: PropTypes.bool,
+    isFullScreen: PropTypes.bool
 };
 
 Blocks.defaultOptions = {
@@ -737,7 +807,8 @@ const mapStateToProps = state => ({
     toolboxXML: state.scratchGui.toolbox.toolboxXML,
     customProceduresVisible: state.scratchGui.customProcedures.active,
     workspaceMetrics: state.scratchGui.workspaceMetrics,
-    isLiveTest: state.scratchGui.vm.isLiveTest
+    isLiveTest: state.scratchGui.vm.isLiveTest,
+    isFullScreen: state.scratchGui.mode.isFullScreen
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -766,9 +837,9 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default errorBoundaryHOC('Blocks')(
+export default injectIntl(errorBoundaryHOC('Blocks')(
     connect(
         mapStateToProps,
         mapDispatchToProps
     )(LoadScratchBlocksHOC(Blocks))
-);
+));

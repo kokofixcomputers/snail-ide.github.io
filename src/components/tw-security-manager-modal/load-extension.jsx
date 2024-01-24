@@ -3,33 +3,9 @@ import PropTypes from 'prop-types';
 import {FormattedMessage} from 'react-intl';
 import styles from './load-extension.css';
 import URL from './url.jsx';
+import DataURL from './data-url.jsx';
 import FancyCheckbox from '../tw-fancy-checkbox/checkbox.jsx';
 import {APP_NAME} from '../../lib/brand';
-
-/**
- * @param {string} dataURI data: URI
- * @returns {string} A hopefully human-readable version
- */
-const decodeDataURI = dataURI => {
-    const delimeter = dataURI.indexOf(',');
-    if (delimeter === -1) {
-        return dataURI;
-    }
-    const contentType = dataURI.substring(0, delimeter);
-    const data = dataURI.substring(delimeter + 1);
-    if (contentType.endsWith(';base64')) {
-        try {
-            return atob(data);
-        } catch (e) {
-            return dataURI;
-        }
-    }
-    try {
-        return decodeURIComponent(data);
-    } catch (e) {
-        return dataURI;
-    }
-};
 
 const LoadExtensionModal = props => (
     <div>
@@ -40,12 +16,7 @@ const LoadExtensionModal = props => (
                     description="Part of modal asking for permission to automatically load custom extension"
                     id="tw.loadExtension.embedded"
                 />
-                <textarea
-                    className={styles.code}
-                    value={decodeDataURI(props.url)}
-                    readOnly
-                    spellCheck={false}
-                />
+                <DataURL url={props.url} />
             </React.Fragment>
         ) : (
             <React.Fragment>
@@ -97,13 +68,28 @@ const LoadExtensionModal = props => (
                 />
             </div>
         )}
+        
+        <label className={styles.unsandboxedContainer}>
+            <FancyCheckbox
+                className={styles.unsandboxedCheckbox}
+                checked={props.remember}
+                onChange={props.onChangeRemember}
+            />
+            <FormattedMessage
+                defaultMessage="Do this for every extension in the project"
+                description="Message that appears in custom extension prompt"
+                id="pm.customExtensionModal.rememberChoice"
+            />
+        </label>
     </div>
 );
 
 LoadExtensionModal.propTypes = {
     url: PropTypes.string.isRequired,
     unsandboxed: PropTypes.bool.isRequired,
-    onChangeUnsandboxed: PropTypes.func
+    onChangeUnsandboxed: PropTypes.func,
+    remember: PropTypes.bool.isRequired,
+    onChangeRemember: PropTypes.func
 };
 
 export default LoadExtensionModal;

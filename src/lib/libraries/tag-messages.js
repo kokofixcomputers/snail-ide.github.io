@@ -166,19 +166,44 @@ export default defineMessages({
         description: 'Tag for filtering a library by categoryexpansion',
         id: 'gui.libraryTags.categoryexpansion'
     },
-    categoryhardware: {
+    ui: {
+        defaultMessage: 'UI',
+        description: 'Tag for filtering a library by ui',
+        id: 'gui.libraryTags.ui'
+    },
+    footsteps: {
+        defaultMessage: 'Footsteps',
+        description: 'Tag for filtering a library by footsteps',
+        id: 'gui.libraryTags.footsteps'
+    },
+    custom: {
+        defaultMessage: 'Custom',
+        description: 'Tag for filtering a library by custom. Usually this is a custom button, not an actual tag',
+        id: 'gui.libraryTags.custom'
+    },
+    customextension: {
+        defaultMessage: 'Load Custom Extension',
+        description: 'Button that loads a custom extension.',
+        id: 'gui.libraryTags.customextension'
+    },
+    hardware: {
         defaultMessage: 'Hardware',
-        description: 'Tag for filtering a library by categoryhardware',
+        description: 'Tag for filtering a library by hardware.',
         id: 'gui.libraryTags.hardware'
     },
-    other_mods: {
-        defaultMessage: 'Other Mods',
-        description: 'Extensions from other mods (not counting turbowarp)',
-        id: 'gui.libraryTags.other_mods'
+    library: {
+        defaultMessage: 'Collections',
+        description: 'Tag for filtering a library by extension collections.',
+        id: 'gui.libraryTags.library'
     },
-    categorybuilders: {
-        defaultMessage: 'Extension Builders',
-        description: 'Tag for filtering a library by categorybuilders',
-        id: 'gui.libraryTags.extenionbuilders'
-    }
+    extcreate: {
+        defaultMessage: 'Extension Creators',
+        description: 'Tag for finding all extension creator programs / website',
+        id: 'gui.libraryTags.extcreate'
+    },
+    datamgmt: {
+        defaultMessage: 'Data Management',
+        description: 'Tag for filtering a library by data management',
+        id: 'gui.libraryTags.datamgmt'
+    },
 });

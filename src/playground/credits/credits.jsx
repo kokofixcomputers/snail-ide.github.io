@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import appTarget from '../app-target';
 import styles from './credits.css';
-import {getInitialDarkMode} from '../../lib/tw-theme-hoc.jsx';
+import { getInitialDarkMode } from '../../lib/tw-theme-hoc.jsx';
 
 // import fosshostLogo from './fosshost-light.png';
 import UserData from './users';
@@ -12,7 +12,7 @@ import UserData from './users';
 
 document.documentElement.lang = 'en';
 
-const User = ({image, text, href}) => (
+const User = ({ image, text, href }) => (
     <a
         href={href}
         target="_blank"
@@ -36,7 +36,7 @@ User.propTypes = {
     href: PropTypes.string
 };
 
-const UserList = ({users}) => (
+const UserList = ({ users }) => (
     <div className={styles.users}>
         {users.map((data, index) => (
             <User
@@ -81,6 +81,9 @@ const Credits = () => (
             </p>
             <UserList users={UserData.pmDevelopers} />
             <p><i>The list order is randomized on each refresh.</i></p>
+            <p>There are even community members who have helped develop PenguinMod. People like <i>you!</i></p>
+            <UserList users={UserData.pmPullRequestDevelopers} />
+            <p><i>The list order is randomized on each refresh.</i></p>
         </section>
         <section>
             <h2>GitHub Pages</h2>
@@ -94,14 +97,53 @@ const Credits = () => (
             </a>
             <h2>Domain Provider</h2>
             <p>
-                <a href="https://snail-ide.js.org">snail-ide.js.org</a> is provided by <a href="https://js.org">js.org</a>
+                <a href="https://penguinmod.com">penguinmod.com</a> (and any subdomains) are currently
+                provided by <a href="https://github.com/enderhacker">NotHouse</a>.
+                <br></br>
+                <a href="https://github.com/enderhacker">
+                    <img src="https://avatars.githubusercontent.com/u/61245488?v=4" style={{ width: "128px" }}></img>
+                </a>
             </p>
+            <h2>Server Host</h2>
+            <p>
+                PenguinMod's Project Sharing server is currently hosted by <a href="https://github.com/JoshAtticus">JoshAtticus</a>.
+                <br></br>
+                <a href="https://github.com/JoshAtticus">
+                    <img src="https://avatars.githubusercontent.com/u/72828296?v=4" style={{ width: "128px" }}></img>
+                </a>
+            </p>
+            <p>
+                The PenguinMod Server API is maintained by many people.
+                A list is below, but you can also check <a href="https://github.com/PenguinMod/PenguinMod-IntermediateBackendApi/graphs/contributors">the GitHub repository</a> incase this one is out of date.
+            </p>
+            <UserList users={UserData.pmApiDevelopers} />
+            <p><i>The list order is randomized on each refresh.</i></p>
             <h2>Sound Effects</h2>
             <p>
                 Snail IDE has added some more sounds to the Sound Library.
                 All Snail IDE sounds are
                 from <a href="https://freesound.org/">https://freesound.org/</a> and <a href="https://archive.org/">https://archive.org/</a> under
-                the Public Domain license.
+                Public Domain licenses.
+            </p>
+            <h2>Accounts</h2>
+            <p>
+                Login is managed
+                by <a href="https://auth.itinerary.eu.org/">Scratch Auth</a> created
+                by <a href="https://scratch.mit.edu/users/Looky1173/">Looky1173</a>.
+                (thanks for adding us to the user list!)
+                <br />
+                <br />
+                <i>
+                    "Scratch Auth" is not actually affiliated with Scratch,
+                    the Scratch Team, or the Scratch Foundation.
+                </i>
+                <br />
+                <br />
+                <i>
+                    PenguinMod is also not owned or managed by Looky1173, please only comment on his profile
+                    <br />
+                    if the Scratch Auth page tells you that it failed, not if PenguinMod fails to load.
+                </i>
             </p>
         </section>
         <section>
@@ -120,6 +162,12 @@ const Credits = () => (
                 Check them out below:
             </p>
             <UserList users={UserData.extensionDevelopers} />
+            <p><i>The list order is randomized on each refresh.</i></p>
+            <p>
+                PenguinMod also has a few people who made and submitted extensions too!
+                This list may get outdated sometimes, but here they are listed below:
+            </p>
+            <UserList users={UserData.pmExtensionDevelopers} />
             <p><i>The list order is randomized on each refresh.</i></p>
         </section>
         <section>
@@ -183,9 +231,12 @@ const Credits = () => (
                 far more than we could hope to list here.
             </p>
             <p>
-                Unfortunately due to Snail IDE's small size, we have decided to mainly focus on English.
-                You can still use Snail IDE with the other languages, but they will not be updated at this time.
+                PenguinMod is also (very very slowly) getting translated into other languages, in the future
+                hopefully the same number of languages can be supported. It'll take a while until we get there though.
             </p>
+            <p>Contributors:</p>
+            <UserList users={UserData.pmTranslators} />
+            <p><i>The list order is randomized on each refresh.</i></p>
         </section>
         <section>
             <p>

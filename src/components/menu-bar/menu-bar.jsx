@@ -515,6 +515,9 @@ class MenuBar extends React.Component {
                                 >
                                     <MenuSection>
                                         <MenuItemLink href="https://github.com/Snail-IDE/snail-ide.github.io/issues/new">
+=======
+                                        <MenuItemLink href="https://discord.gg/NZ9MBMYTZh">
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
                                             <FormattedMessage
                                                 defaultMessage="Some scripts could not be compiled."
                                                 description="Link in error menu"
@@ -522,6 +525,9 @@ class MenuBar extends React.Component {
                                             />
                                         </MenuItemLink>
                                         <MenuItemLink href="https://github.com/Snail-IDE/snail-ide.github.io/issues/new">
+=======
+                                        <MenuItemLink href="https://discord.gg/NZ9MBMYTZh">
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
                                             <FormattedMessage
                                                 defaultMessage="This is a bug. Please report it."
                                                 description="Link in error menu"
@@ -891,6 +897,9 @@ class MenuBar extends React.Component {
                         <a
                             className={styles.feedbackLink}
                             href="https://snail-ide.vercel.app"
+=======
+                            href="https://penguinmod.com"
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
                             rel="noopener noreferrer"
                             target="_blank"
                         >

@@ -1,39 +1,32 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import log from './log';
-import {getIsShowingProject} from '../reducers/project-state';
+import { getIsShowingProject } from '../reducers/project-state';
 
-const PACKAGER_URL = 'https://snail-ide.js.org/Snail-IDE-Packager';
-const PACKAGER_ORIGIN = "https://snail-ide.js.org";
-
-const readBlobAsArrayBuffer = blob => new Promise((resolve, reject) => {
-    const fr = new FileReader();
-    fr.onload = () => resolve(fr.result);
-    fr.onerror = () => reject(new Error('Cannot read blob as array buffer'));
-    fr.readAsArrayBuffer(blob);
-});
+const PACKAGER_URL = 'https://studio.penguinmod.com/PenguinMod-Packager';
+const PACKAGER_ORIGIN = "https://studio.penguinmod.com";
 
 const PackagerIntegrationHOC = function (WrappedComponent) {
     class PackagerIntegrationComponent extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
             this.handleClickPackager = this.handleClickPackager.bind(this);
             this.handleMessage = this.handleMessage.bind(this);
         }
-        componentDidMount () {
+        componentDidMount() {
             window.addEventListener('message', this.handleMessage);
         }
-        componentWillUnmount () {
+        componentWillUnmount() {
             window.removeEventListener('message', this.handleMessage);
         }
-        handleClickPackager () {
+        handleClickPackager() {
             if (this.props.canOpenPackager) {
                 window.open(`${PACKAGER_URL}/?import_from=${location.origin}`);
                 window.open(`${PACKAGER_URL}/?import_from=${location.origin}`);
             }
         }
-        handleMessage (e) {
+        handleMessage(e) {
             if (e.origin !== PACKAGER_ORIGIN) {
                 return;
             }
@@ -58,10 +51,9 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                 }
             }, e.origin);
 
-            this.props.vm.saveProjectSb3()
-                .then(readBlobAsArrayBuffer)
+            this.props.vm.saveProjectSb3('arraybuffer')
                 .then(buffer => {
-                    const name = `${this.props.reduxProjectTitle}.snail`;
+                    const name = `${this.props.reduxProjectTitle}.pmp`;
                     e.source.postMessage({
                         p4: {
                             type: 'finish-import',
@@ -79,7 +71,7 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                     }, e.origin);
                 });
         }
-        render () {
+        render() {
             const {
                 /* eslint-disable no-unused-vars */
                 canOpenPackager,
