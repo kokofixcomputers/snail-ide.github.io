@@ -58,40 +58,6 @@ const motion = function (isInitialSetup, isStage, targetId) {
                 </shadow>
             </value>
         </block>
-        <block type="motion_turnrightaroundxy">
-            <value name="DEGREES">
-                <shadow type="math_number">
-                    <field name="NUM">15</field>
-                </shadow>
-            </value>
-            <value name="X">
-                <shadow type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-            <value name="Y">
-                <shadow type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="motion_turnleftaroundxy">
-            <value name="DEGREES">
-                <shadow type="math_number">
-                    <field name="NUM">15</field>
-                </shadow>
-            </value>
-            <value name="X">
-                <shadow type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-            <value name="Y">
-                <shadow type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-        </block>
         ${blockSeparator}
         <block type="motion_goto">
             <value name="TO">
@@ -212,18 +178,6 @@ const motion = function (isInitialSetup, isStage, targetId) {
         <block type="motion_ifonspritebounce">
             <value name="SPRITE">
                 <shadow type="motion_pointtowards_menu"></shadow>
-            </value>
-        </block>
-        <block type="motion_ifonxybounce">
-            <value name="X">
-                <shadow type="math_number">
-                    <field name="NUM">10</field>
-                </shadow>
-            </value>
-            <value name="Y">
-                <shadow type="math_number">
-                    <field name="NUM">10</field>
-                </shadow>
             </value>
         </block>
         ${blockSeparator}
@@ -364,6 +318,7 @@ const looks = function (isInitialSetup, isStage, targetId, costumeName, backdrop
             </block>
             <block type="looks_nextcostume"/>
             <block type="looks_previouscostume"/>
+            ${blockSeparator}
             <block type="looks_switchbackdropto">
                 <value name="BACKDROP">
                     <shadow type="looks_backdrops">
@@ -398,6 +353,7 @@ const looks = function (isInitialSetup, isStage, targetId, costumeName, backdrop
                     </shadow>
                 </value>
             </block>
+            ${blockSeparator}
             <block type="looks_setStretch">
                 <value name="X">
                     <shadow type="math_number">
@@ -428,8 +384,14 @@ const looks = function (isInitialSetup, isStage, targetId, costumeName, backdrop
                 </shadow>
             </value>
         </block>
+        <block type="looks_setTintColor">
+            <value name="color">
+                <shadow type="colour_picker"></shadow>
+            </value>
+        </block>
         <block type="looks_cleargraphiceffects"/>
         <block type="looks_getEffectValue"/>
+        <block type="looks_tintColor"/>
         ${blockSeparator}
         ${isStage ? '' : `
             <block type="looks_show"/>
@@ -605,12 +567,14 @@ const events = function (isInitialSetup, isStage) {
     <category name="%{BKY_CATEGORY_EVENTS}" id="events" colour="#FFD500" secondaryColour="#CC9900">
         <block type="event_whenflagclicked"/>
         <block type="event_whenstopclicked"/>
+        ${blockSeparator}
         <block type="event_always"></block>
         <block type="event_whentouchingobject"></block>
         <block type="event_touchingobjectmenu"></block>
         <block type="event_whenanything">
             <value name="ANYTHING"></value>
         </block>
+        ${blockSeparator}
         <block type="event_whenkeypressed"></block>
         <block type="event_whenkeyhit"></block>
         <block type="event_whenmousescrolled"></block>
@@ -674,6 +638,7 @@ const control = function (isInitialSetup, isStage) {
             </value>
         </block>
         <block id="forever" type="control_forever"/>
+        <block type="control_exitLoop"/>
         ${blockSeparator}
         <block type="control_switch"/>
         <block type="control_switch_default"/>
@@ -760,19 +725,7 @@ const control = function (isInitialSetup, isStage) {
             </block>
             <block type="control_delete_this_clone"/>
         `}
-        ${blockSeparator}
-        <block type="control_get_counter"/>
-        <block type="control_incr_counter"/>
         ${LazyScratchBlocks.isNameUrMom() ? '<block type="your_mom"/>' : ''}
-        <block type="control_decr_counter"/>
-        <block type="control_set_counter">
-            <value name="VALUE">
-                <shadow type="math_whole_number">
-                    <field name="NUM">10</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="control_clear_counter"/>
         ${categorySeparator}
     </category>
     `;
@@ -807,6 +760,12 @@ const sensing = function (isInitialSetup, isStage) {
                 </value>
                 <value name="COLOR2">
                     <shadow type="colour_picker"/>
+                </value>
+            </block>
+            ${blockSeparator}
+            <block type="sensing_getxyoftouchingsprite">
+                <value name="SPRITE">
+                    <shadow type="sensing_distancetomenu"/>
                 </value>
             </block>
             <block type="sensing_distanceto">
@@ -859,12 +818,6 @@ const sensing = function (isInitialSetup, isStage) {
                 </value>
             </block>
             ${blockSeparator}
-            <block type="sensing_getxyoftouchingsprite">
-                <value name="SPRITE">
-                    <shadow type="sensing_distancetomenu"/>
-                </value>
-            </block>
-            ${blockSeparator}
         `}
         ${isInitialSetup ? '' : `
             <block id="askandwait" type="sensing_askandwait">
@@ -906,6 +859,7 @@ const sensing = function (isInitialSetup, isStage) {
                 <shadow type="sensing_scrolldirections"/>
             </value>
         </block>
+        ${blockSeparator}
         <block type="sensing_mousedown"/>
         <block type="sensing_mouseclicked"/>
         <block type="sensing_mousex"/>
@@ -929,14 +883,9 @@ const sensing = function (isInitialSetup, isStage) {
         ${blockSeparator}
         <block id="loudness" type="sensing_loudness"/>
         ${blockSeparator}
-        <block id="timer" type="sensing_timer"/>
         <block type="sensing_resettimer"/>
+        <block id="timer" type="sensing_timer"/>
         ${blockSeparator}
-        <block id="of" type="sensing_of">
-            <value name="OBJECT">
-                <shadow id="sensing_of_object_menu" type="sensing_of_object_menu"/>
-            </value>
-        </block>
         <block type="sensing_set_of">
             <value name="OBJECT">
                 <shadow id="sensing_of_object_menu" type="sensing_of_object_menu"/>
@@ -945,6 +894,11 @@ const sensing = function (isInitialSetup, isStage) {
                 <shadow type="text">
                     <field name="TEXT">0</field>
                 </shadow>
+            </value>
+        </block>
+        <block id="of" type="sensing_of">
+            <value name="OBJECT">
+                <shadow id="sensing_of_object_menu" type="sensing_of_object_menu"/>
             </value>
         </block>
         ${blockSeparator}
@@ -972,6 +926,7 @@ const sensing = function (isInitialSetup, isStage) {
                 <shadow id="sensing_fingeroptions" type="sensing_fingeroptions"/>
             </value>
         </block>
+        ${blockSeparator}
         <block type="sensing_username"/>
         ${categorySeparator}
     </category>
@@ -1413,46 +1368,19 @@ const variables = function () {
     </category>
     `;
 };
+
 const lists = function () {
     return `
     <category
         name="Lists"
         id="lists"
-        colour="#FF8C1A"
-        secondaryColour="#DB6E00"
+        colour="#FF661A"
+        secondaryColour="#FF5500"
         custom="LIST">
     </category>
     `;
 };
-const effectsCategory = function () {
-    return `
-    
-    <category name="Effects" id="effectsCategory" colour="#1e246e" secondaryColour="#1e246e">
-        <block type="looks_changeeffectby">
-            <value name="CHANGE">
-                <shadow type="math_number">
-                    <field name="NUM">25</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="looks_show"/>
-            <block type="looks_hide"/>
-            <block type="looks_getSpriteVisible"/>
-        <block type="looks_costume"/>
-        <block type="looks_backdrops"/>
-        <block type="looks_seteffectto">
-            <value name="VALUE">
-                <shadow type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-        </block>
-        <block type="looks_cleargraphiceffects"/>
-        <block type="looks_getEffectValue"/>
-        ${categorySeparator}
-    </category>
-    `;
-};
+
 const myBlocks = function () {
     return `
     <category
@@ -1486,6 +1414,10 @@ const liveTests = function () {
                 </shadow>
             </value>
         </block>
+        ${blockSeparator}
+        <block type="control_fieldbutton"></block>
+        <block type="operators_expandablejoininputs"></block>
+        <block type="motion_mutatorCheckboxTest"></block>
     </category>
     `;
 };
@@ -1537,9 +1469,8 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
     const controlXML = moveCategory('control') || control(isInitialSetup, isStage, targetId);
     const sensingXML = moveCategory('sensing') || sensing(isInitialSetup, isStage, targetId);
     const operatorsXML = moveCategory('operators') || operators(isInitialSetup, isStage, targetId);
-    const variablesXML = moveCategory('data') || variables(isInitialSetup, isStage, targetId);
+    const variablesXML = moveCategory('variables') || variables(isInitialSetup, isStage, targetId);
     const listsXML = moveCategory('lists') || lists(isInitialSetup, isStage, targetId);
-    const effectsXML = moveCategory('effects') || effectsCategory(isInitialSetup, isStage, targetId);
     const myBlocksXML = moveCategory('procedures') || myBlocks(isInitialSetup, isStage, targetId);
     const liveTestsXML = moveCategory('liveTests') || liveTests(isLiveTest);
 
@@ -1554,7 +1485,6 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
         operatorsXML, gap,
         variablesXML, gap,
         listsXML, gap,
-        effectsXML, gap,
         myBlocksXML, gap,
         isLiveTest ? [liveTestsXML, gap] : ''
     ];

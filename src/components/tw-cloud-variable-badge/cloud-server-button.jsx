@@ -37,3 +37,4 @@ CloudServerButton.propTypes = {
 };
 
 export default CloudServerButton;
+export default CloudServerButton;

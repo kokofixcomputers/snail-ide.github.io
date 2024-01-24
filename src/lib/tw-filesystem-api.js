@@ -6,7 +6,7 @@ const showSaveFilePicker = fileName => window.showSaveFilePicker({
         {
             description: 'Snail IDE Project',
             accept: {
-                'application/x.scratch.sb3': '.snail'
+                'application/x.scratch.sb3': '.pmp'
             }
         }
     ],
@@ -18,9 +18,15 @@ const showOpenFilePicker = async () => {
         multiple: false,
         types: [
             {
+                description: 'PenguinMod Project',
+                accept: {
+                    'application/x.scratch.sb3': ['.pmp', '.pm']
+                }
+            },
+            {
                 description: 'Scratch Project',
                 accept: {
-                    'application/x.scratch.sb3': ['.sb', '.sb2', '.sb3', '.pm', '.pmp','.snail']
+                    'application/x.scratch.sb3': ['.sb3', '.sb2', '.sb']
                 }
             }
         ]

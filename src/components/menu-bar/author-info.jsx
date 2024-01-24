@@ -32,6 +32,9 @@ const ActualAuthorInfo = ({
             <div>
                 <span className={styles.usernameLine}>
                     <a style={{ color: "white" }} target="_blank" href={"https://snail-ide.vercel.app/profile?user=" + username}>
+=======
+                    <a style={{ color: "white" }} target="_blank" href={"https://penguinmod.com/profile?user=" + username}>
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
                         <FormattedMessage
                             defaultMessage="by {username}"
                             description="Shows that a project was created by this user"

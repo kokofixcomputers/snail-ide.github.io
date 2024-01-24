@@ -31,6 +31,7 @@ export const initialState = {
     runtimeOptions: {
         maxClones: 300,
         miscLimits: true,
+        dangerousOptimizations: false,
         fencing: true
     },
     isWindowFullScreen: false,
@@ -48,7 +49,9 @@ export const initialState = {
         isRemix: false,
         remixId: 0,
         tooLarge: false,
-        author: ''
+        author: '',
+        releaseDate: new Date(),
+        isUpdated: false
     },
     remixedProjectInfo: {
         loaded: false,

@@ -6,7 +6,7 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var TWGenerateServiceWorkerPlugin = require('./src/playground/generate-service-worker-plugin');
-var defaultsdeep = require('lodash.defaultsdeep')
+var defaultsdeep = require('lodash.defaultsdeep');
 //var GhPagesWebpackPlugin = require('gh-pages-webpack-plugin');
 
 
@@ -61,6 +61,9 @@ const base = {
             'scratch-render-fonts$': path.resolve(__dirname, 'src/lib/tw-scratch-render-fonts')
         }
     },
+    node: {
+        fs: 'empty'
+    },
     module: {
         rules: [{
             test: /\.jsx?$/,
@@ -109,7 +112,8 @@ const base = {
             }]
         }]
     },
-    plugins: []
+    plugins: [
+    ],
 };
 
 if (!process.env.CI) {

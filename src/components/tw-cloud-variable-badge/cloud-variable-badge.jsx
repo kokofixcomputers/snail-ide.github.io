@@ -44,6 +44,7 @@ const CloudVariableBadge = props => {
             <FormattedMessage
                 // eslint-disable-next-line max-len
                 defaultMessage="{APP_NAME}'s cloud variables are not connected to Scratch's. Anyone can {changeTheirUsername} to anything, so beware of impersonation. We now use Infinity Server created by thepython555, which unlocks a lot of Turbowarp's cloud limiations. Go to the GitHub repo to learn more."
+                defaultMessage="{APP_NAME}'s cloud variables are not connected to Scratch's. Anyone can {changeTheirUsername} to anything, so beware of impersonation.
                 // eslint-disable-next-line max-len
                 description="Cloud variable information shown under projects with cloud variables. {changeTheirUsername} will be replaced with a link with text 'change their username' (translated)"
                 id="tw.usesCloudVariables2"
@@ -90,6 +91,49 @@ const CloudVariableBadge = props => {
                     }}
                 />
             )}
+<<<<<<< HEAD
+=======
+
+            {selectedHost && selectedHost.provider && (
+                <FormattedMessage
+                    defaultMessage="Server provided by {name}."
+                    description="Link to person/company who provided this cloud variable server"
+                    id="tw.cloudProvider"
+                    values={{
+                        name: (
+                            <a
+                                href={selectedHost.provider.href}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {selectedHost.provider.name}
+                            </a>
+                        )
+                    }}
+                />
+            )}
+    
+            <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://docs.turbowarp.org/cloud-variables"
+            >
+                <FormattedMessage
+                    defaultMessage="Learn more about cloud variables."
+                    description="Link for more information about cloud variables"
+                    id="tw.moreCloud"
+                />
+            </a>
+        </div>
+    );
+};
+
+CloudVariableBadge.propTypes = {
+    cloudHost: PropTypes.string,
+    onSetCloudHost: PropTypes.func,
+    onOpenChangeUsername: PropTypes.func
+};
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
 
             {selectedHost && selectedHost.provider && (
                 <FormattedMessage

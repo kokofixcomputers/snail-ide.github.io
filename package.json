@@ -28,7 +28,9 @@
     "url": "git+ssh://git@github.com/LLK/scratch-gui.git"
   },
   "dependencies": {
-    "@turbowarp/scratch-l10n": "^3.1000.20230326022803",
+    "@turbowarp/scratch-l10n": "^3.1000.20230326022803"
+    "PenguinMod-MarkDown": "github:PenguinMod/PenguinMod-MarkDown#master",
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
     "arraybuffer-loader": "^1.0.8",
     "autoprefixer": "^9.8.8",
     "base64-loader": "1.0.0",
@@ -52,6 +54,8 @@
     "lodash.debounce": "4.0.8",
     "lodash.omit": "4.5.0",
     "md": "^0.6.0",
+=======
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
     "lodash.throttle": "4.0.1",
     "minilog": "3.1.0",
     "omggif": "1.0.9",
@@ -85,6 +89,11 @@
     "scratch-paint": "github:Snail-IDE/Snail-IDE-Paint#develop",
     "scratch-render": "github:Snail-IDE/Snail-IDE-Render#develop",
     "scratch-render-fonts": "1.0.0-prerelease.20210401210003",
+=======
+    "scratch-paint": "github:PenguinMod/PenguinMod-Paint#develop",
+    "scratch-render": "github:PenguinMod/PenguinMod-Render#develop",
+    "scratch-render-fonts": "github:PenguinMod/penguinmod-render-fonts#master",
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
     "scratch-storage": "github:PenguinMod/PenguinMod-Storage#develop",
     "scratch-svg-renderer": "github:TurboWarp/scratch-svg-renderer#develop",
     "scratch-vm": "github:Snail-IDE/Snail-IDE-Vm#develop",

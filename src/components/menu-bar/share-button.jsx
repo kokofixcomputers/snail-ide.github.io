@@ -29,6 +29,7 @@ const isUploadAvailable = async () => {
     let res = null;
     try {
         res = await fetch('https://snailshare-backend.glitch.me/api');
+        res = await fetch('https://projects.penguinmod.com/api');
     } catch {
         // failed to fetch entirely
         return false;
@@ -60,7 +61,11 @@ class ShareButton extends React.Component {
         this.handleMessageEvent(e);
     }
     async handleMessageEvent(e) {
+<<<<<<< HEAD
         if (!e.origin.startsWith(`https://snail-ide.vercel.app`)) {
+=======
+        if (!e.origin.startsWith(`https://penguinmod.com`)) {
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
             return;
         }
 
@@ -138,7 +143,11 @@ class ShareButton extends React.Component {
             }
 
             const url = location.origin;
+<<<<<<< HEAD
             window.open(`https://snail-ide.vercel.app/upload?name=${this.props.projectTitle}${remixPiece}&external=${url}`, '_blank');
+=======
+            window.open(`https://penguinmod.com/upload?name=${this.props.projectTitle}${remixPiece}&external=${url}`, '_blank');
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b
         });
     }
     render() {
@@ -196,3 +205,6 @@ export default injectIntl(connect(
     mapStateToProps,
     mapDispatchToProps
 )(ShareButton));
+=======
+)(ShareButton));
+>>>>>>> 676a0de42806a8fe2732ffcb95ba25eda362025b

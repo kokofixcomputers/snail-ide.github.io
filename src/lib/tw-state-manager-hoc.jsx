@@ -336,12 +336,9 @@ const TWStateManager = function (WrappedComponent) {
                 }
             }
 
-            /*
-            add back: nohqpen
             if (urlParams.has('nohqpen')) {
                 this.props.vm.renderer.setUseHighQualityRender(false);
             }
-            */
 
             if (urlParams.has('turbo')) {
                 this.props.vm.setTurboMode(true);
@@ -391,6 +388,12 @@ const TWStateManager = function (WrappedComponent) {
             if (urlParams.has('limitless')) {
                 this.props.vm.setRuntimeOptions({
                     miscLimits: false
+                });
+            }
+            
+            if (urlParams.has('optimize')) {
+                this.props.vm.setRuntimeOptions({
+                    dangerousOptimizations: true
                 });
             }
 
@@ -472,14 +475,11 @@ const TWStateManager = function (WrappedComponent) {
                     searchParams.delete('turbo');
                 }
 
-                /*
-                add back: nohqpen
                 if (!this.props.highQualityPen) {
                     searchParams.set('nohqpen', '');
                 } else {
                     searchParams.delete('nohqpen');
                 }
-                */
 
                 /*
                 if (compilerOptions.enabled) {
@@ -513,6 +513,12 @@ const TWStateManager = function (WrappedComponent) {
                     searchParams.delete('limitless');
                 } else {
                     searchParams.set('limitless', '');
+                }
+                
+                if (runtimeOptions.dangerousOptimizations) {
+                    searchParams.set('optimize', '');
+                } else {
+                    searchParams.delete('optimize');
                 }
 
                 setSearchParams(searchParams);
@@ -596,6 +602,7 @@ const TWStateManager = function (WrappedComponent) {
         }),
         runtimeOptions: PropTypes.shape({
             miscLimits: PropTypes.bool,
+            dangerousOptimizations: PropTypes.bool,
             fencing: PropTypes.bool,
             maxClones: PropTypes.number
         }),

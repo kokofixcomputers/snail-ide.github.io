@@ -15,8 +15,8 @@ import log from '../lib/log';
 const getProjectTitleFromFilename = fileInputFilename => {
     if (!fileInputFilename) return '';
     // only parse title with valid scratch project extensions
-    // (.sb, .sb2, .sb3, .pm, and .pmp)
-    const matches = fileInputFilename.match(/^(.*)(\.sb[23]?|\.pm|\.pmp|\.snail)$/);
+    // (.sb, .sb2, .sb3, and .pm)
+    const matches = fileInputFilename.match(/^(.*)(\.sb[23]?|\.pm|\.pmp)$/);
     if (!matches) return '';
     return matches[1].substring(0, 100); // truncate project title to max 100 chars
 };
@@ -127,12 +127,17 @@ class SB3Downloader extends React.Component {
         }
 
         const writable = await handle.createWritable();
-        try {
-            this.startedSaving();
+        this.startedSaving();
 
+        await new Promise((resolve, reject) => {
             // Projects can be very large, so we'll utilize JSZip's stream API to avoid having the
             // entire sb3 in memory at the same time.
             const jszipStream = this.props.saveProjectSb3Stream();
+
+            const abortController = new AbortController();
+            jszipStream.on('error', error => {
+                abortController.abort(error);
+            });
 
             // JSZip's stream pause() and resume() methods are not necessarily completely no-ops
             // if they are already paused or resumed. These also make it easier to add debug
@@ -153,7 +158,7 @@ class SB3Downloader extends React.Component {
             };
 
             // Allow the JSZip stream to run quite a bit ahead of file writing. This helps
-            // reduce zip stream pauses on systems with slow storage.
+            // reduce zip stream pauses on systems with high latency storage.
             const HIGH_WATER_MARK_BYTES = 1024 * 1024 * 5;
 
             // Minimum size of buffer to pass into write(). Small buffers will be queued and
@@ -192,9 +197,8 @@ class SB3Downloader extends React.Component {
                         const newBuffer = concatenateByteArrays(queuedChunks);
                         queuedChunks.length = 0;
                         return writable.write(newBuffer);
-                    } else {
-                        // Wait for more data.
                     }
+                    // Otherwise wait for more data
                 },
                 close: async () => {
                     // Write the last batch of data.
@@ -202,20 +206,25 @@ class SB3Downloader extends React.Component {
                     if (lastBuffer.byteLength) {
                         await writable.write(lastBuffer);
                     }
-                    // File handle must be closed at the end.
+                    // File handle must be closed at the end to actually save the file.
                     await writable.close();
+                },
+                abort: async () => {
+                    await writable.abort();
                 }
             });
 
-            await zipStream.pipeTo(fileStream);
-            this.finishedSaving();
-        } catch (e) {
-            // Always need to close the file handle.
-            await writable.close();
-
-            // The caller will deal with this error.
-            throw e;
-        }
+            zipStream.pipeTo(fileStream, {
+                signal: abortController.signal
+            })
+                .then(() => {
+                    this.finishedSaving();
+                    resolve();
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
     }
     handleSaveError (e) {
         // AbortError can happen when someone cancels the file selector dialog
@@ -252,7 +261,7 @@ const getProjectFilename = (curTitle, defaultTitle) => {
     if (!filenameTitle || filenameTitle.length === 0) {
         filenameTitle = defaultTitle;
     }
-    return `${filenameTitle.substring(0, 100)}.snail`;
+    return `${filenameTitle.substring(0, 100)}.pmp`;
 };
 
 SB3Downloader.propTypes = {
